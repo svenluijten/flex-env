@@ -1,0 +1,26 @@
+{
+    "name": "sven/flex-env",
+    "description": "Edit your .env file in Laravel directly from the command line.",
+    "keywords": ["flexible", "env", "laravel", "artisan"],
+    "license": "MIT",
+    "homepage": "https://github.com/svenluijten/flex-env",
+    "support": {
+        "issues": "https://github.com/svenluijten/flex-env/issues",
+        "source": "https://github.com/svenluijten/flex-env"
+    },
+    "authors": [
+        {
+            "name": "Sven Luijten",
+            "email": "svenluijten@outlook.com",
+            "homepage": "https://svenluijten.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "~5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sven\\FlexEnv\\": "src/"
+        }
+    }
+}
