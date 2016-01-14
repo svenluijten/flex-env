@@ -33,13 +33,13 @@ and you will see them in the list.
 
 ```bash
 # Add a new key/value pair to your .env file:
-php artisan env:new <key> <value>
+$ php artisan env:new {key} {value}
 
 # Edit a value in your .env file:
-php artisan env:set <key> <value>
+$ php artisan env:set {key} {value}
 
 # Delete a key/value pair from your .env file:
-php artisan env:delete <key>
+$ php artisan env:delete {key}
 ```
 
 The changes should now be reflected in your `.env` file.
