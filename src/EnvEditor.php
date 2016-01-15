@@ -35,7 +35,7 @@ class EnvEditor
      * Create an .env file if it does not exist yet.
      *
      * @param  string $path
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return void
      */
     protected function createFile($path)
     {
@@ -44,8 +44,6 @@ class EnvEditor
         }
 
         $this->file = $path;
-
-        return $this;
     }
 
     /**
@@ -53,15 +51,15 @@ class EnvEditor
      *
      * @param  string $key
      * @param  string $value
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return void
      */
     public function set($key, $value)
     {
         if ( ! $this->get($key)) {
-            return $this->edit($key, $value);
+            $this->create($key, $value);
+        } else {
+            $this->edit($key, $value);
         }
-
-        return $this->create($key, $value);
     }
 
     /**
@@ -104,7 +102,7 @@ class EnvEditor
         $contents = file_get_contents($this->getFile());
         $newContents = preg_replace("~\n?$old\n?~", $new, $contents);
 
-        file_put_contents($this->getFile(), $newContents);
+        file_put_contents($this->getFile(), $newContents, FILE_APPEND);
     }
 
     /**
@@ -117,9 +115,11 @@ class EnvEditor
     {
         $items = $this->parseEnv();
 
-        return $items->filter(function($value) use ($searchBy) {
+        $collection = $items->filter(function($value) use ($searchBy) {
             return $value->first() == $searchBy;
         })->first()->get(1);
+
+        return $collection;
     }
 
     /**
@@ -129,13 +129,15 @@ class EnvEditor
      */
     private function parseEnv()
     {
-        $array = explode("\n", file_get_contents($this->file));
+        $array = explode("\n", file_get_contents($this->getFile()));
         $items = new Collection($array);
 
         return $items->filter(function($value) {
-            return $value == true;
+            return $value !== "";
         })->map(function($value) {
-            return new Collection(explode('=', $value));
+            $array = explode('=', $value);
+
+            return new Collection($array);
         });
     }
 

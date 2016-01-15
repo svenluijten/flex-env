@@ -1,13 +1,15 @@
 <?php
 
-use Orchestra\Testbench\TestCase;
 use Mockery as m;
 
-class FlexEnvTest extends TestCase
+class FlexEnvTest extends Orchestra\Testbench\TestCase
 {
-    public function setUp()
+    /** @test */
+    public function it_checks_if_env_file_exists()
     {
-        $this->flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+
+        $this->assertTrue($flexenv->fileExists());
     }
 
     /** @test */
@@ -15,32 +17,32 @@ class FlexEnvTest extends TestCase
     {
         @unlink(realpath(__DIR__.'/assets/.env'));
 
-        $this->assertTrue($this->flexenv->fileExists());
-    }
+        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-    /** @test */
-    public function it_checks_if_env_file_exists()
-    {
-        $this->assertTrue($this->flexenv->fileExists());
+        $this->assertTrue($flexenv->fileExists());
     }
 
     /** @test */
     public function it_retrieves_a_value_from_the_env_file()
     {
-        file_put_contents($this->flexenv->getFile(), 'TEST=foobar');
-        file_put_contents($this->flexenv->getFile(), "\nONE=1one", FILE_APPEND);
-        file_put_contents($this->flexenv->getFile(), "\n", FILE_APPEND);
-        file_put_contents($this->flexenv->getFile(), "\nTWO=2two", FILE_APPEND);
+        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $this->assertEquals($this->flexenv->get('TEST'), 'foobar');
+        file_put_contents($flexenv->getFile(), 'TEST=foobar', FILE_APPEND);
+        file_put_contents($flexenv->getFile(), "\nONE=1one", FILE_APPEND);
+        file_put_contents($flexenv->getFile(), "\n", FILE_APPEND);
+        file_put_contents($flexenv->getFile(), "\nTWO=2two", FILE_APPEND);
+
+        $this->assertEquals('foobar', $flexenv->get('TEST'));
     }
 
     /** @test */
-    public function it_adds_a_value_into_the_env_file()
-    {
-        $this->flexenv->set('THREE', '3three');
-        $get = $this->flexenv->get('THREE');
+    // public function it_adds_a_value_into_the_env_file()
+    // {
+    //     $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $this->assertEquals($get, '3three');
-    }
+    //     $flexenv->set('THREE', '3three');
+    //     $get = $flexenv->get('THREE');
+
+    //     $this->assertEquals($get, 'THREE');
+    // }
 }

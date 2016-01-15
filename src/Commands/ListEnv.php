@@ -29,8 +29,6 @@ class ListEnv extends FlexEnv
     public function __construct()
     {
         parent::__construct();
-
-        $this->envExists()->hasError() ? die : null;
     }
 
     /**
@@ -40,15 +38,7 @@ class ListEnv extends FlexEnv
      */
     public function handle()
     {
-
-        $contents = file_get_contents($this->file);
-        $newContents = str_replace(
-            "$this->inputKey=$this->oldValue", "$this->inputKey=$this->inputValue", $contents
-        );
-
-        file_put_contents($this->file, $newContents);
-
-        return $this->info("Changed $this->inputKey to '$this->inputValue' in your env file.");
+        //
     }
 
     /**
