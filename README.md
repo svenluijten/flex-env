@@ -1,3 +1,5 @@
+![flex-env](https://cloud.githubusercontent.com/assets/11269635/12333265/7e4a8620-baf3-11e5-8baf-0df225a3d481.jpg)
+
 # Laravel FlexEnv
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
