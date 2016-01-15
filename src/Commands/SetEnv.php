@@ -2,15 +2,11 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FlexEnv\Traits\HelpsFlexEnv;
-use Symfony\Component\Console\Input\InputOption;
+use Sven\FlexEnv\FlexEnv;
 use Symfony\Component\Console\Input\InputArgument;
 
-class SetEnvKey extends Command
+class SetEnv extends FlexEnv
 {
-    use HelpsFlexEnv;
-
     /**
      * The name and signature of the console command.
      *
@@ -42,13 +38,13 @@ class SetEnvKey extends Command
      */
     public function handle()
     {
-        $this->envExists()->setData()->assureOldValue();
-        $this->hasError() ? die : null;
+        $this->envExists()->setData()->hasError() ? die : null;
 
         $contents = file_get_contents($this->file);
         $newContents = str_replace(
             "$this->inputKey=$this->oldValue", "$this->inputKey=$this->inputValue", $contents
         );
+
         file_put_contents($this->file, $newContents);
 
         return $this->info("Changed $this->inputKey to '$this->inputValue' in your env file.");
@@ -62,8 +58,8 @@ class SetEnvKey extends Command
     protected function getArguments()
     {
         return [
-            ['key', InputArgument::REQUIRED, 'The key in your .env to edit'],
-            ['value', InputArgument::REQUIRED, 'The value to change it to'],
+            ['key', InputArgument::REQUIRED, 'The key in your .env to edit.'],
+            ['value', InputArgument::REQUIRED, 'The value to change it to.'],
         ];
     }
 }

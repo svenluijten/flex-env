@@ -16,7 +16,14 @@
         }
     ],
     "require": {
-        "illuminate/support": "~5.1"
+        "php": "^5.5",
+        "illuminate/support": "~5.1",
+        "illuminate/foundation": "~5.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1",
+        "orchestra/testbench": "~3.0",
+        "mockery/mockery": "dev-master"
     },
     "autoload": {
         "psr-4": {

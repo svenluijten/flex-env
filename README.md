@@ -1,63 +1,47 @@
-# Laravel FlexEnv
+# Laravel 5's Package Boilerplate
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Total Downloads][ico-downloads]][link-downloads]
-[![Software License][ico-license]](LICENSE.md)
+A custom made Laravel5 package boilerplate made for package development purpose, which contains publish code for :
 
-This package adds a handful of useful commands to edit your `.env` file in a
-Laravel installation directly from the command line.
-
-## Install
-
-Via [composer](http://getcomposer.org):
-
-```bash
-$ composer require sven/flex-env
-```
-
-Next, add the `FlexEnvServiceProvider` to your `providers` array in `config/app.php`:
-
-```php
-// config/app.php
-'providers' => [
-    ...
-    Sven\FlexEnv\FlexEnvServiceProvider::class,
-    ...
-];
-```
+- Config
+- View
+- Assets
+- Migrations
+- Seeds
+- Routes
 
 ## Usage
 
-The commands in this package should now be registered. Simply run `php artisan`,
-and you will see them in the list.
+1- Clone this repository into your package development folder.
 
-```bash
-# Add a new key/value pair to your .env file:
-$ php artisan env:new {key} {value}
+2- Change src/Package to your package name. Customize the package's composer.json autoload section to reflect the previous change.
 
-# Edit a value in your .env file:
-$ php artisan env:set {key} {value}
+3- Customize **Package/PackageServiceProvider** with the correct namespace and the name of your package, and replace the $packageNamespace attribute.
 
-# Delete a key/value pair from your .env file:
-$ php artisan env:delete {key}
+```php
+
+    protected $packageName = 'yourpackagename';
+
 ```
 
-The changes should now be reflected in your `.env` file.
+4- Add the package in your application's **composer.json** autoload section to make it available in your application.
 
-## Contributing
-Inspiration for this package came from [LeShadow's ArtisanExtended](https://github.com/LeShadow/ArtisanExtended).
+```
+"psr-4": {
+    "App\\": "app/",
+    "Vendor\\Package\\": "packages/vendor/package/src/Package"
+}
+```
 
-All contributions (in the form on pull requests, issues and feature-requests) are
-welcomed and will be properly credited.
+5- Run :
 
-## License
+```
+composer dump-autoload
+```
 
-`sven/flex-env` is licenced under the MIT License (MIT). Please see the
-[license file](LICENSE.md) for more information.
+6- Add the newly create package's service provider to your **config/app.php** provider's list.
 
-[ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
+7- Have fun!
 
-[link-packagist]: https://packagist.org/packages/sven/flex-env
-[link-downloads]: https://packagist.org/packages/sven/flex-env
+## Package dependencies
+
+Laravel won't autoload the **vendor/** path in your package's development folder. Easiest workaround is to add them in your main application's composer.json.

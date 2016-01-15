@@ -7,33 +7,33 @@ use Illuminate\Support\ServiceProvider;
 class FlexEnvServiceProvider extends ServiceProvider
 {
     /**
-     * Perform post-registration booting of services.
+     * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
         $this->app['env:set'] = $this->app->share(function() {
-            return new Commands\SetEnvKey;
-        });
-
-        $this->app['env:new'] = $this->app->share(function() {
-            return new Commands\NewEnvKey;
+            return new Commands\SetEnv;
         });
 
         $this->app['env:delete'] = $this->app->share(function() {
-            return new Commands\DeleteEnvKey;
+            return new Commands\DeleteEnv;
+        });
+
+        $this->app['env:list'] = $this->app->share(function() {
+            return new Commands\ListEnv;
         });
 
         $this->commands(
             'env:set',
-            'env:new',
-            'env:delete'
+            'env:delete',
+            'env:list'
         );
     }
 
     /**
-     * Register any package services.
+     * Register the application services.
      *
      * @return void
      */
@@ -41,4 +41,5 @@ class FlexEnvServiceProvider extends ServiceProvider
     {
         //
     }
+
 }
