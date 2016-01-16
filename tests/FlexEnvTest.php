@@ -23,6 +23,16 @@ class FlexEnvTest extends Orchestra\Testbench\TestCase
     }
 
     /** @test */
+    public function it_gets_the_env_file()
+    {
+        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+
+        $file = $flexenv->getFile();
+
+        $this->assertEquals(__DIR__.'/assets/.env', $file);
+    }
+
+    /** @test */
     public function it_retrieves_a_value_from_the_env_file()
     {
         $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
@@ -33,6 +43,7 @@ class FlexEnvTest extends Orchestra\Testbench\TestCase
         file_put_contents($flexenv->getFile(), "\nTWO=2two", FILE_APPEND);
 
         $this->assertEquals('foobar', $flexenv->get('TEST'));
+        $this->assertEquals('2two', $flexenv->get('TWO'));
     }
 
     /** @test */
