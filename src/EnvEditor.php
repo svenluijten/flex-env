@@ -9,7 +9,7 @@ class EnvEditor
     /**
      * @var string
      */
-    protected $file;
+    protected $path;
 
     /**
      * Instantiate the EnvEditor.
@@ -18,7 +18,7 @@ class EnvEditor
      */
     public function __construct($path)
     {
-        $this->createFile($path);
+        $this->setPath($path);
     }
 
     /**
@@ -26,9 +26,9 @@ class EnvEditor
      *
      * @return string
      */
-    public function getFile()
+    public function getPath()
     {
-        return $this->file;
+        return $this->path;
     }
 
     /**
@@ -37,13 +37,13 @@ class EnvEditor
      * @param  string $path
      * @return void
      */
-    protected function createFile($path)
+    protected function setPath($path)
     {
-        if (! $this->fileExists()) {
+        if ( ! $this->fileExists()) {
             file_put_contents($path, '');
         }
 
-        $this->file = $path;
+        $this->path = $path;
     }
 
     /**
@@ -71,7 +71,7 @@ class EnvEditor
      */
     private function create($key, $value)
     {
-        file_put_contents($this->getFile(), "\n$key=$value", FILE_APPEND);
+        file_put_contents($this->getPath(), "\n$key=$value", FILE_APPEND);
     }
 
     /**
@@ -99,10 +99,10 @@ class EnvEditor
      */
     private function envReplace($old, $new)
     {
-        $contents = file_get_contents($this->getFile());
+        $contents = file_get_contents($this->getPath());
         $newContents = preg_replace("~\n?$old\n?~", $new, $contents);
 
-        file_put_contents($this->getFile(), $newContents, FILE_APPEND);
+        file_put_contents($this->getPath(), $newContents, FILE_APPEND);
     }
 
     /**
@@ -129,7 +129,7 @@ class EnvEditor
      */
     private function parseEnv()
     {
-        $array = explode("\n", file_get_contents($this->getFile()));
+        $array = explode("\n", file_get_contents($this->getPath()));
         $items = new Collection($array);
 
         return $items->filter(function($value) {
@@ -148,6 +148,6 @@ class EnvEditor
      */
     public function fileExists()
     {
-        return file_exists($this->getFile());
+        return file_exists($this->getPath());
     }
 }

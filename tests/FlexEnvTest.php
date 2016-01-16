@@ -27,7 +27,7 @@ class FlexEnvTest extends Orchestra\Testbench\TestCase
     {
         $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $file = $flexenv->getFile();
+        $file = $flexenv->getPath();
 
         $this->assertEquals(__DIR__.'/assets/.env', $file);
     }
@@ -37,10 +37,10 @@ class FlexEnvTest extends Orchestra\Testbench\TestCase
     {
         $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        file_put_contents($flexenv->getFile(), 'TEST=foobar', FILE_APPEND);
-        file_put_contents($flexenv->getFile(), "\nONE=1one", FILE_APPEND);
-        file_put_contents($flexenv->getFile(), "\n", FILE_APPEND);
-        file_put_contents($flexenv->getFile(), "\nTWO=2two", FILE_APPEND);
+        file_put_contents($flexenv->getPath(), 'TEST=foobar', FILE_APPEND);
+        file_put_contents($flexenv->getPath(), "\nONE=1one", FILE_APPEND);
+        file_put_contents($flexenv->getPath(), "\n", FILE_APPEND);
+        file_put_contents($flexenv->getPath(), "\nTWO=2two", FILE_APPEND);
 
         $this->assertEquals('foobar', $flexenv->get('TEST'));
         $this->assertEquals('2two', $flexenv->get('TWO'));
