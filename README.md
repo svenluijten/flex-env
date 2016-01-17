@@ -6,8 +6,8 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 
-This package adds a handful of useful commands to edit your `.env` file in a
-Laravel installation directly from the command line.
+This package adds a handful of useful commands to edit your `.env` file in
+[Laravel](https://laravel.com) without leaving the command prompt.
 
 ## Install
 
@@ -25,11 +25,10 @@ Next, add the `FlexEnvServiceProvider` to your `providers` array in `config/app.
     ...
     Sven\FlexEnv\FlexEnvServiceProvider::class,
     ...
-];
+]
 ```
 
 ## Usage
-
 The commands in this package should now be registered. Simply run `php artisan`,
 and you will see them in the list.
 
@@ -49,13 +48,12 @@ The changes should now be reflected in your `.env` file.
 ## Contributing
 Inspiration for this package came from [LeShadow's ArtisanExtended](https://github.com/LeShadow/ArtisanExtended).
 
-All contributions (in the form on pull requests, issues and feature-requests) are
-welcomed and will be properly credited.
+All contributions (in the form of pull requests, issues and feature-requests) are
+welcome and will always be properly credited.
 
 ## License
-
-`sven/flex-env` is licenced under the MIT License (MIT). Please see the
-[license file](LICENSE.md) for more information.
+`sven/flex-env` is licenced under the MIT License (MIT). See the [license file](LICENSE.md)
+for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
