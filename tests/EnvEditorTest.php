@@ -2,7 +2,7 @@
 
 use Mockery as m;
 
-class FlexEnvTest extends Orchestra\Testbench\TestCase
+class EnvEditorTest extends Orchestra\Testbench\TestCase
 {
     /** @test */
     public function it_creates_an_env_file_if_none_exists()
@@ -73,5 +73,21 @@ class FlexEnvTest extends Orchestra\Testbench\TestCase
                      ->get('FOO_BAR');
 
         $this->assertEquals('', $result2);
+    }
+
+    /** @test */
+    public function it_lists_all_entries()
+    {
+        @unlink(__DIR__.'/assets/.env');
+
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+
+        $f->set('TESTING', 'hello-world')
+          ->set('FOO_BAR', 'biz-baz');
+
+        $this->assertEquals(
+            ['TESTING' => 'hello-world', 'FOO_BAR' => 'biz-baz'],
+            $f->all()
+        );
     }
 }

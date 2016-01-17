@@ -77,6 +77,23 @@ class EnvEditor
         return $this;
     }
 
+    /**
+     * Gets all the key/value pairs from the .env file.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        $env = $this->parseFile();
+        $result = [];
+
+        $env->each(function($value, $key) use (&$result) {
+            return $result[$value->first()] = $value->get(1);
+        });
+
+        return $result;
+    }
+
 
     /**
      * Get the full path to the .env file.
@@ -95,7 +112,7 @@ class EnvEditor
      */
     private function parseFile()
     {
-        $contents = file_get_contents($this->path);
+        $contents = file_get_contents($this->getPath());
         $lines = new Collection(explode("\n", $contents));
         $result = new Collection;
 
