@@ -5,55 +5,73 @@ use Mockery as m;
 class FlexEnvTest extends Orchestra\Testbench\TestCase
 {
     /** @test */
-    public function it_checks_if_env_file_exists()
+    public function it_creates_an_env_file_if_none_exists()
     {
-        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+        @unlink(__DIR__.'/assets/.env');
 
-        $this->assertTrue($flexenv->fileExists());
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+
+        $this->assertEquals(__DIR__.'/assets/.env', $f->getPath());
     }
 
     /** @test */
-    public function it_creates_env_file_if_none_exists()
+    public function it_can_read_entries()
     {
-        @unlink(realpath(__DIR__.'/assets/.env'));
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+        file_put_contents(__DIR__.'/assets/.env', 'TEST=hello-world');
+        file_put_contents(__DIR__.'/assets/.env', "\nFOO_BAR=something else", FILE_APPEND);
 
-        $this->assertTrue($flexenv->fileExists());
+        $this->assertEquals('hello-world', $f->get('TEST'));
+        $this->assertEquals('something else', $f->get('FOO_BAR'));
     }
 
     /** @test */
-    public function it_gets_the_env_file()
+    public function it_returns_an_empty_string_if_value_not_found()
     {
-        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $file = $flexenv->getPath();
-
-        $this->assertEquals(__DIR__.'/assets/.env', $file);
+        $this->assertEquals('', $f->get('I_DO_NOT_EXIST'));
     }
 
     /** @test */
-    public function it_retrieves_a_value_from_the_env_file()
+    public function it_can_add_values()
     {
-        $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        file_put_contents($flexenv->getPath(), 'TEST=foobar', FILE_APPEND);
-        file_put_contents($flexenv->getPath(), "\nONE=1one", FILE_APPEND);
-        file_put_contents($flexenv->getPath(), "\n", FILE_APPEND);
-        file_put_contents($flexenv->getPath(), "\nTWO=2two", FILE_APPEND);
+        $result = $f->set('HELLO_WORLD', 'this-is-a-test')
+                    ->get('HELLO_WORLD');
 
-        $this->assertEquals('foobar', $flexenv->get('TEST'));
-        $this->assertEquals('2two', $flexenv->get('TWO'));
+        $this->assertEquals('this-is-a-test', $result);
     }
 
     /** @test */
-    // public function it_adds_a_value_into_the_env_file()
-    // {
-    //     $flexenv = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+    public function it_overwrites_an_existing_value()
+    {
+        @unlink(__DIR__.'/assets/.env');
 
-    //     $flexenv->set('THREE', '3three');
-    //     $get = $flexenv->get('THREE');
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-    //     $this->assertEquals($get, 'THREE');
-    // }
+        $result = $f->set('FOO_BAR', 'biz-baz')
+                    ->set('FOO_BAR', 'hello-world')
+                    ->get('FOO_BAR');
+
+        $this->assertEquals('hello-world', $result);
+    }
+
+    /** @test */
+    public function it_removes_an_entry()
+    {
+        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
+
+        $result1 = $f->set('FOO_BAR', 'biz-baz')
+                     ->get('FOO_BAR');
+
+        $this->assertEquals('biz-baz', $result1);
+
+        $result2 = $f->delete('FOO_BAR')
+                     ->get('FOO_BAR');
+
+        $this->assertEquals('', $result2);
+    }
 }
