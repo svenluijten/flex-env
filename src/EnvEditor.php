@@ -14,15 +14,72 @@ class EnvEditor
     /**
      * Instantiate the EnvEditor.
      *
-     * @param string $path The full path to the .env file
+     * @param string $path
      */
     public function __construct($path)
     {
-        $this->setPath($path);
+        if ( ! file_exists($path)) {
+            file_put_contents($path, '');
+        }
+
+        $this->path = $path;
     }
 
     /**
-     * Get the env file's location.
+     * Get an entry from the .env file by key.
+     *
+     * @param  string $key
+     * @return string
+     */
+    public function get($key)
+    {
+        $env = $this->parseFile();
+
+        $result = $env->filter(function($value) use ($key) {
+            return $value->first() == $key;
+        })->first();
+
+        return $result instanceof Collection ? $result->get(1) : $result;
+    }
+
+    /**
+     * Set the value of the given key to the value supplied.
+     *
+     * @param  string $key
+     * @param  string $value
+     * @return \Sven\FlexEnv\EnvEditor
+     */
+    public function set($key, $value)
+    {
+        $oldValue = $this->get($key);
+        $path = $this->getPath();
+
+        if ( ! is_null($oldValue)) {
+            $this->replaceInFile("$key=$oldValue", "$key=$value");
+        } else {
+            file_put_contents($path, "\n$key=$value", FILE_APPEND);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Delete an entry from the .env file.
+     * @param  string $key
+     * @return \Sven\FlexEnv\EnvEditor
+     */
+    public function delete($key)
+    {
+        $old = $this->get($key);
+
+        $this->replaceInFile("$key=$old", '');
+
+        return $this;
+    }
+
+
+    /**
+     * Get the full path to the .env file.
      *
      * @return string
      */
@@ -32,122 +89,38 @@ class EnvEditor
     }
 
     /**
-     * Create an .env file if it does not exist yet.
-     *
-     * @param  string $path
-     * @return void
-     */
-    protected function setPath($path)
-    {
-        if ( ! $this->fileExists()) {
-            file_put_contents($path, '');
-        }
-
-        $this->path = $path;
-    }
-
-    /**
-     * Set an entry in the .env file.
-     *
-     * @param  string $key
-     * @param  string $value
-     * @return void
-     */
-    public function set($key, $value)
-    {
-        if ( ! $this->get($key)) {
-            $this->create($key, $value);
-        } else {
-            $this->edit($key, $value);
-        }
-    }
-
-    /**
-     * Add a new entry to the .env file.
-     *
-     * @param  string $key
-     * @param  string $value
-     * @return void
-     */
-    private function create($key, $value)
-    {
-        file_put_contents($this->getPath(), "\n$key=$value", FILE_APPEND);
-    }
-
-    /**
-     * Edit an existing entry in the .env file.
-     *
-     * @param  string $key
-     * @param  string $value
-     * @return void
-     */
-    private function edit($key, $value)
-    {
-        $oldValue = $this->get($key);
-        $oldEntry = "$key=$oldValue";
-        $newEntry = "$key=$value";
-
-        $this->envReplace($oldEntry, $newEntry);
-    }
-
-    /**
-     * Replace the contents in the .env file.
-     *
-     * @param  string $old
-     * @param  string $new
-     * @return void
-     */
-    private function envReplace($old, $new)
-    {
-        $contents = file_get_contents($this->getPath());
-        $newContents = preg_replace("~\n?$old\n?~", $new, $contents);
-
-        file_put_contents($this->getPath(), $newContents, FILE_APPEND);
-    }
-
-    /**
-     * Get one entry from the .env file.
-     *
-     * @param  string $searchBy
-     * @return string
-     */
-    public function get($searchBy)
-    {
-        $items = $this->parseEnv();
-
-        $collection = $items->filter(function($value) use ($searchBy) {
-            return $value->first() == $searchBy;
-        })->first()->get(1);
-
-        return $collection;
-    }
-
-    /**
-     * Parse the .env file for easier handling.
+     * Parse the .env file contents for easier handling.
      *
      * @return \Illuminate\Support\Collection
      */
-    private function parseEnv()
+    private function parseFile()
     {
-        $array = explode("\n", file_get_contents($this->getPath()));
-        $items = new Collection($array);
+        $contents = file_get_contents($this->path);
+        $lines = new Collection(explode("\n", $contents));
+        $result = new Collection;
 
-        return $items->filter(function($value) {
-            return $value !== "";
-        })->map(function($value) {
-            $array = explode('=', $value);
-
-            return new Collection($array);
+        $lines->filter(function($value) {
+            return $value;
+        })->each(function($value) use ($result) {
+            $result->push(new Collection(explode('=', $value)));
         });
+
+        return $result;
     }
 
     /**
-     * Check if the .env file exists.
+     * Replace a part of the .env file.
      *
-     * @return bool
+     * @param  string  $old
+     * @param  string  $new
+     * @param  integer $append
+     * @return void
      */
-    public function fileExists()
+    public function replaceInFile($old, $new, $append = 0)
     {
-        return file_exists($this->getPath());
+        $contents = file_get_contents($this->getPath());
+        $replaceWith = preg_replace("~\n?$old\n?~", "\n$new", $contents);
+
+        file_put_contents($this->getPath(), $replaceWith, $append);
     }
 }
