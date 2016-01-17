@@ -2,10 +2,11 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\FlexEnv;
+use Sven\FlexEnv\EnvEditor;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class DeleteEnv extends FlexEnv
+class GetEnv extends Command
 {
     /**
      * The name and signature of the console command.
@@ -22,23 +23,24 @@ class DeleteEnv extends FlexEnv
     protected $description = 'Get an entry from your .env file.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        //
+        $env = new EnvEditor(base_path('.env'));
+        $key = $this->argument('key');
+
+        $this->info('Getting value for ' . $key . '...');
+
+        $result = $env->get($key);
+
+        if ($result == '' || is_null($result)) {
+            return $this->error("Could not find a value for key $key in your .env file.");
+        }
+
+        return $this->info("The value for $key is $result.");
     }
 
     /**

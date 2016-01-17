@@ -2,10 +2,11 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\FlexEnv;
+use Sven\FlexEnv\EnvEditor;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ListEnv extends FlexEnv
+class ListEnv extends Command
 {
     /**
      * The name and signature of the console command.
@@ -22,35 +23,21 @@ class ListEnv extends FlexEnv
     protected $description = 'Shows all the current entries in your .env file.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        //
-    }
+        $env = new EnvEditor(base_path('.env'));
+        $data = [];
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['key', InputArgument::REQUIRED, 'The key in your .env to edit.'],
-            ['value', InputArgument::REQUIRED, 'The value to change it to.'],
-        ];
+        $this->info('Getting all values from your .env file...');
+
+        foreach ($env->all() as $key => $value) {
+            $data[] = [$key, $value];
+        }
+
+        return $this->table(['Key', 'Value'], $data);
     }
 }

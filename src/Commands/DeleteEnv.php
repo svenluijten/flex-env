@@ -2,10 +2,11 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\FlexEnv;
+use Sven\FlexEnv\EnvEditor;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class DeleteEnv extends FlexEnv
+class DeleteEnv extends Command
 {
     /**
      * The name and signature of the console command.
@@ -22,31 +23,24 @@ class DeleteEnv extends FlexEnv
     protected $description = 'Delete an entry from your .env file.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        $this->envExists()->setData()->assureOldValue();
-        $this->hasError() ? die : null;
-        if ( ! $this->confirm("Are you sure you want to remove $this->inputKey with a value of $this->oldValue from your .env file?")) {
-            return $this->info('Nothing in your .env file was changed.');
+        $env = new EnvEditor(base_path('.env'));
+        $key = $this->argument('key');
+
+        $this->info('Deleting ' . $key . '...');
+
+        $result = $env->delete($key)->get($key);
+
+        if ($result == '' || is_null($result)) {
+            return $this->info("Successfully deleted the entry with key $key from your .env file.");
         }
-        $content = file_get_contents($this->file);
-        $newContent = preg_replace("~\s?$this->inputKey=$this->oldValue\s?~", '', $content);
-        file_put_contents($this->file, $newContent);
-        return $this->info("Successfully removed $this->inputKey from your .env file");
+
+        return $this->info("No value was found for $key in the .env file.");
     }
 
     /**
