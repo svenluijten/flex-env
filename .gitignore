@@ -1,5 +1,8 @@
+# Testing
 /vendor
+/tests/assets/.env
 composer.phar
 composer.lock
+
+# Misc
 .DS_Store
-tests/assets/.env
