@@ -1,6 +1,5 @@
 <?php
 
-use Mockery as m;
 
 class EnvEditorTest extends Orchestra\Testbench\TestCase
 {

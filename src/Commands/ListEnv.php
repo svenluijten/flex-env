@@ -2,9 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\EnvEditor;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
+use Sven\FlexEnv\EnvEditor;
 
 class ListEnv extends Command
 {

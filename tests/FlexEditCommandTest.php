@@ -23,5 +23,4 @@ class FlexEditCommandTest extends Orchestra\Testbench\TestCase
 
         $this->assertEquals('hello-world', $output);
     }
-
 }
