@@ -18,7 +18,7 @@ class EnvEditor
      */
     public function __construct($path)
     {
-        if ( ! file_exists($path)) {
+        if (!file_exists($path)) {
             file_put_contents($path, '');
         }
 
@@ -29,13 +29,14 @@ class EnvEditor
      * Get an entry from the .env file by key.
      *
      * @param  string $key
+     *
      * @return string
      */
     public function get($key)
     {
         $env = $this->parseFile();
 
-        $result = $env->filter(function($value) use ($key) {
+        $result = $env->filter(function ($value) use ($key) {
             return $value->first() == $key;
         })->first();
 
@@ -47,6 +48,7 @@ class EnvEditor
      *
      * @param  string $key
      * @param  string $value
+     *
      * @return \Sven\FlexEnv\EnvEditor
      */
     public function set($key, $value)
@@ -54,7 +56,7 @@ class EnvEditor
         $oldValue = $this->get($key);
         $path = $this->getPath();
 
-        if ( ! is_null($oldValue)) {
+        if (!is_null($oldValue)) {
             $this->replaceInFile("$key=$oldValue", "$key=$value");
         } else {
             file_put_contents($path, "\n$key=$value", FILE_APPEND);
@@ -65,7 +67,9 @@ class EnvEditor
 
     /**
      * Delete an entry from the .env file.
+     *
      * @param  string $key
+     *
      * @return \Sven\FlexEnv\EnvEditor
      */
     public function delete($key)
@@ -87,13 +91,12 @@ class EnvEditor
         $env = $this->parseFile();
         $result = [];
 
-        $env->each(function($value, $key) use (&$result) {
+        $env->each(function ($value, $key) use (&$result) {
             return $result[$value->first()] = $value->get(1);
         });
 
         return $result;
     }
-
 
     /**
      * Get the full path to the .env file.
@@ -114,11 +117,11 @@ class EnvEditor
     {
         $contents = file_get_contents($this->getPath());
         $lines = new Collection(explode("\n", $contents));
-        $result = new Collection;
+        $result = new Collection();
 
-        $lines->filter(function($value) {
+        $lines->filter(function ($value) {
             return $value;
-        })->each(function($value) use ($result) {
+        })->each(function ($value) use ($result) {
             $result->push(new Collection(explode('=', $value)));
         });
 
@@ -130,7 +133,8 @@ class EnvEditor
      *
      * @param  string  $old
      * @param  string  $new
-     * @param  integer $append
+     * @param  int $append
+     *
      * @return void
      */
     public function replaceInFile($old, $new, $append = 0)

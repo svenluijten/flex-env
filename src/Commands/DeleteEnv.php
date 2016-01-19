@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\EnvEditor;
 use Illuminate\Console\Command;
+use Sven\FlexEnv\EnvEditor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DeleteEnv extends Command
@@ -32,7 +32,7 @@ class DeleteEnv extends Command
         $env = new EnvEditor(base_path('.env'));
         $key = $this->argument('key');
 
-        $this->info('Deleting ' . $key . '...');
+        $this->info('Deleting '.$key.'...');
 
         $result = $env->delete($key)->get($key);
 

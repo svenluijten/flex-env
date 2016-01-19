@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Sven\FlexEnv\EnvEditor;
 use Illuminate\Console\Command;
+use Sven\FlexEnv\EnvEditor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class SetEnv extends Command
@@ -21,7 +21,6 @@ class SetEnv extends Command
      * @var string
      */
     protected $description = 'Set an environment key to the given value.';
-
 
     /**
      * Execute the console command.
