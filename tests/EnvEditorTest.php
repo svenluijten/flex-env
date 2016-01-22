@@ -51,9 +51,9 @@ class EnvEditorTest extends Orchestra\Testbench\TestCase
 
         $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
-        $result = $f->set('FOO_BAR', 'biz-baz')
-                    ->set('FOO_BAR', 'hello-world')
-                    ->get('FOO_BAR');
+        $f->set('FOO_BAR', 'biz-baz');
+        $f->set('FOO_BAR', 'hello-world');
+        $result = $f->get('FOO_BAR');
 
         $this->assertEquals('hello-world', $result);
     }

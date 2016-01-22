@@ -154,7 +154,6 @@ class EnvEditor
     public function replaceInFile($old, $new, $append = 0)
     {
         $contents = $this->previous;
-        $new = preg_match("~\s~", $new) ? "'$new'" : $new;
         $replaceWith = preg_replace("~$old\n?~", "$new\n", $contents);
 
         file_put_contents($this->getPath(), $replaceWith, $append);

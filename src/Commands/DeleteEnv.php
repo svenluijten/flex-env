@@ -30,17 +30,17 @@ class DeleteEnv extends Command
     public function handle()
     {
         $env = new EnvEditor(base_path('.env'));
-        $key = $this->argument('key');
-
-        $this->info('Deleting '.$key.'...');
+        $key = strtoupper($this->argument('key'));
 
         $result = $env->delete($key)->get($key);
 
-        if ($result == '' || is_null($result)) {
-            return $this->info("Successfully deleted the entry with key $key from your .env file.");
+        if ($result !== '' && ! is_null($result)) {
+            $env->rollback();
+
+            return $this->comment("No value was found for \"$key\" in the .env file, nothing was changed.");
         }
 
-        return $this->info("No value was found for $key in the .env file.");
+        return $this->comment("Successfully deleted the entry \"$key\" from your .env file.");
     }
 
     /**

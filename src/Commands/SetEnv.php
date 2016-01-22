@@ -33,7 +33,7 @@ class SetEnv extends Command
     public function handle()
     {
         $env = new EnvEditor(base_path('.env'));
-        $key = $this->argument('key');
+        $key = strtoupper($this->argument('key'));
         $value = $this->argument('value');
         $linebreak = $this->option('line-break');
 
@@ -45,7 +45,7 @@ class SetEnv extends Command
             return $this->error('Could not set the value in your .env file, reverting...');
         }
 
-        return $this->comment("Successfully set $key to \"$value\" in your .env file.");
+        return $this->comment("Successfully set \"$key\" to \"$value\" in your .env file.");
     }
 
     /**

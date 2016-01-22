@@ -31,8 +31,6 @@ class ListEnv extends Command
         $env = new EnvEditor(base_path('.env'));
         $data = [];
 
-        $this->info('Getting all values from your .env file...');
-
         foreach ($env->all() as $key => $value) {
             $data[] = [$key, $value];
         }

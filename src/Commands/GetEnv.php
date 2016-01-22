@@ -30,17 +30,14 @@ class GetEnv extends Command
     public function handle()
     {
         $env = new EnvEditor(base_path('.env'));
-        $key = $this->argument('key');
-
-        $this->info('Getting value for '.$key.'...');
-
+        $key = strtoupper($this->argument('key'));
         $result = $env->get($key);
 
         if ($result == '' || is_null($result)) {
-            return $this->error("Could not find a value for key $key in your .env file.");
+            return $this->error("Could not find a value for \"$key\" in your .env file.");
         }
 
-        return $this->info("The value for $key is $result.");
+        return $this->comment("The value for \"$key\" is \"$result\".");
     }
 
     /**
