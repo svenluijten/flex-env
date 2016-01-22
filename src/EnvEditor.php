@@ -12,31 +12,36 @@ class EnvEditor
     protected $path;
 
     /**
+     * @var string
+     */
+    protected $previous;
+
+    /**
      * Instantiate the EnvEditor.
      *
      * @param string $path
      */
     public function __construct($path)
     {
-        if (!file_exists($path)) {
+        if ( ! file_exists($path)) {
             file_put_contents($path, '');
         }
 
         $this->path = $path;
+        $this->previous = file_get_contents($path);
     }
 
     /**
      * Get an entry from the .env file by key.
      *
      * @param  string $key
-     *
      * @return string
      */
     public function get($key)
     {
         $env = $this->parseFile();
 
-        $result = $env->filter(function ($value) use ($key) {
+        $result = $env->filter(function($value) use ($key) {
             return $value->first() == $key;
         })->first();
 
@@ -46,30 +51,28 @@ class EnvEditor
     /**
      * Set the value of the given key to the value supplied.
      *
-     * @param  string $key
-     * @param  string $value
-     *
+     * @param  string  $key
+     * @param  string  $value
+     * @param  boolean $linebreak
      * @return \Sven\FlexEnv\EnvEditor
      */
-    public function set($key, $value)
+    public function set($key, $value, $linebreak = false)
     {
         $oldValue = $this->get($key);
-        $path = $this->getPath();
+        $new = $linebreak ? "\n$key=$value" : "$key=$value";
 
-        if (!is_null($oldValue)) {
-            $this->replaceInFile("$key=$oldValue", "$key=$value");
-        } else {
-            file_put_contents($path, "\n$key=$value", FILE_APPEND);
+        if ( ! is_null($oldValue)) {
+            return $this->replaceInFile("$key=$oldValue", $new);
         }
+
+        file_put_contents($this->getPath(), "\n$new", FILE_APPEND);
 
         return $this;
     }
 
     /**
      * Delete an entry from the .env file.
-     *
      * @param  string $key
-     *
      * @return \Sven\FlexEnv\EnvEditor
      */
     public function delete($key)
@@ -91,11 +94,23 @@ class EnvEditor
         $env = $this->parseFile();
         $result = [];
 
-        $env->each(function ($value, $key) use (&$result) {
+        $env->each(function($value, $key) use (&$result) {
             return $result[$value->first()] = $value->get(1);
         });
 
         return $result;
+    }
+
+    /**
+     * Rolls the .env file back to the way it was before performing the command.
+     *
+     * @return \Sven\FlexEnv\EnvEditor
+     */
+    public function rollback()
+    {
+        file_put_contents($this->getPath(), $this->previous);
+
+        return $this;
     }
 
     /**
@@ -117,11 +132,11 @@ class EnvEditor
     {
         $contents = file_get_contents($this->getPath());
         $lines = new Collection(explode("\n", $contents));
-        $result = new Collection();
+        $result = new Collection;
 
-        $lines->filter(function ($value) {
+        $lines->filter(function($value) {
             return $value;
-        })->each(function ($value) use ($result) {
+        })->each(function($value) use ($result) {
             $result->push(new Collection(explode('=', $value)));
         });
 
@@ -133,15 +148,17 @@ class EnvEditor
      *
      * @param  string  $old
      * @param  string  $new
-     * @param  int $append
-     *
-     * @return void
+     * @param  integer $append
+     * @return \Sven\FlexEnv\EnvEditor
      */
     public function replaceInFile($old, $new, $append = 0)
     {
-        $contents = file_get_contents($this->getPath());
-        $replaceWith = preg_replace("~\n?$old\n?~", "\n$new", $contents);
+        $contents = $this->previous;
+        $new = preg_match("~\s~", $new) ? "'$new'" : $new;
+        $replaceWith = preg_replace("~$old\n?~", "$new\n", $contents);
 
         file_put_contents($this->getPath(), $replaceWith, $append);
+
+        return $this;
     }
 }

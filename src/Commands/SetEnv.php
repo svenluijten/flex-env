@@ -13,7 +13,10 @@ class SetEnv extends Command
      *
      * @var string
      */
-    protected $signature = 'env:set {key} {value}';
+    protected $signature = 'env:set
+                            {key : The key to change or set.}
+                            {value : The value to set the specified key to.}
+                            {--L|line-break : Whether or not the command should insert a linebreak before the entry.}';
 
     /**
      * The console command description.
@@ -32,14 +35,17 @@ class SetEnv extends Command
         $env = new EnvEditor(base_path('.env'));
         $key = $this->argument('key');
         $value = $this->argument('value');
+        $linebreak = $this->option('line-break');
 
-        $result = $env->set($key, $value)->get($key);
+        $result = $env->set($key, $value, $linebreak)->get($key);
 
         if ($result !== $value) {
-            return $this->error('Could not set the value in your .env file...');
+            $env->rollback();
+
+            return $this->error('Could not set the value in your .env file, reverting...');
         }
 
-        return $this->info("Successfully set $key to $value in your .env file.");
+        return $this->comment("Successfully set $key to \"$value\" in your .env file.");
     }
 
     /**
