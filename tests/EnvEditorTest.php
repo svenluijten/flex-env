@@ -36,6 +36,8 @@ class EnvEditorTest extends Orchestra\Testbench\TestCase
     /** @test */
     public function it_can_add_values()
     {
+        @unlink(__DIR__.'/assets/.env');
+
         $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
         $result = $f->set('HELLO_WORLD', 'this-is-a-test')
@@ -47,6 +49,8 @@ class EnvEditorTest extends Orchestra\Testbench\TestCase
     /** @test */
     public function it_removes_an_entry()
     {
+        @unlink(__DIR__.'/assets/.env');
+
         $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
 
         $result1 = $f->set('FOO_BAR', 'biz-baz')
