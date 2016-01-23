@@ -45,20 +45,6 @@ class EnvEditorTest extends Orchestra\Testbench\TestCase
     }
 
     /** @test */
-    public function it_overwrites_an_existing_value()
-    {
-        @unlink(__DIR__.'/assets/.env');
-
-        $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
-
-        $f->set('FOO_BAR', 'biz-baz');
-        $f->set('FOO_BAR', 'hello-world');
-        $result = $f->get('FOO_BAR');
-
-        $this->assertEquals('hello-world', $result);
-    }
-
-    /** @test */
     public function it_removes_an_entry()
     {
         $f = new Sven\FlexEnv\EnvEditor(__DIR__.'/assets/.env');
