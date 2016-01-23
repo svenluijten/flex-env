@@ -34,17 +34,23 @@ The commands in this package should now be registered. Simply run `php artisan`,
 and you will see them in the list.
 
 ```bash
-# Set a key/value in your .env file:
+# Create or edit an entry in your .env file:
 $ php artisan env:set {key} {value} [--line-break|-L]
 # Add the --line-break (or -L) option to insert a newline before the entry.
+```
 
-# Delete a key/value pair from your .env file:
+```bash
+# Delete an entry from your .env file:
 $ php artisan env:delete {key}
+```
 
-# Show the value for the given key from your .env file:
+```bash
+# Show the value of the given key from your .env file:
 $ php artisan env:get {key}
+```
 
-# Show the entire .env file.
+```bash
+# Show the entire .env file:
 $ php artisan env:list
 ```
 
