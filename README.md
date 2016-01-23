@@ -1,4 +1,4 @@
-![flex-env](https://cloud.githubusercontent.com/assets/11269635/12333265/7e4a8620-baf3-11e5-8baf-0df225a3d481.jpg)
+![flex-env](https://cloud.githubusercontent.com/assets/11269635/12526309/85a09084-c16c-11e5-8099-cddf6f8fce78.jpg)
 
 # Laravel FlexEnv
 
@@ -35,8 +35,8 @@ and you will see them in the list.
 
 ```bash
 # Set a key/value in your .env file:
-$ php artisan env:set {key} {value}
-# (if the value can not be found, it will be created)
+$ php artisan env:set {key} {value} [--line-break|-L]
+# Add the --line-break (or -L) option to insert a newline before the entry.
 
 # Delete a key/value pair from your .env file:
 $ php artisan env:delete {key}
