@@ -15,7 +15,18 @@ mouse again!
 Via [composer](http://getcomposer.org):
 
 ```bash
-$ composer require sven/flex-env:~2.0
+$ composer require sven/flex-env:~2.0 --dev
+```
+
+Alternatively, add the package to your dev dependencies in `composer.json` and run
+`composer update` afterwards:
+
+```json
+{
+    "require-dev": {
+        "sven/flex-env": "~2.0"
+    }
+}
 ```
 
 Next, add the `FlexEnvServiceProvider` to your `providers` array in `config/app.php`:
