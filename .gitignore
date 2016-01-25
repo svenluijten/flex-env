@@ -3,6 +3,7 @@
 /tests/assets/.env
 composer.phar
 composer.lock
+phpunit.xml
 
 # Misc
 .DS_Store
