@@ -80,7 +80,7 @@ welcomed and will be properly credited.
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/USER/REPO.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/svenluijten/flex-env.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
 [link-downloads]: https://packagist.org/packages/sven/flex-env
