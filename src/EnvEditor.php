@@ -94,7 +94,7 @@ class EnvEditor
         $env = $this->parseFile();
         $result = [];
 
-        $env->each(function($value, $key) use (&$result) {
+        $env->each(function($value) use (&$result) {
             return $result[$value->first()] = $value->get(1);
         });
 
