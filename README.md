@@ -6,6 +6,8 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
+[![Code Climate][ico-codeclimate]][link-codeclimate]
+[![Code Quality][ico-quality]][link-quality]
 
 This package adds a handful of useful commands to edit your `.env` file in Laravel
 directly from the command line with a simple, human readable API. Never touch the
@@ -81,7 +83,11 @@ welcomed and will be properly credited.
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/svenluijten/flex-env.svg?style=flat-square
+[ico-codeclimate]: https://img.shields.io/codeclimate/github/svenluijten/flex-env.svg?style=flat-square
+[ico-quality]: https://img.shields.io/scrutinizer/g/svenluijten/flex-env.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
 [link-downloads]: https://packagist.org/packages/sven/flex-env
 [link-travis]: https://travis-ci.org/svenluijten/flex-env
+[link-codeclimate]: https://codeclimate.com/github/svenluijten/flex-env
+[link-quality]: https://scrutinizer-ci.com/g/svenluijten/flex-env/?branch=master
