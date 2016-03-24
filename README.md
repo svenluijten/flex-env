@@ -76,12 +76,8 @@ All contributions (in the form of pull requests, issues and feature-requests) ar
 welcome and will always be properly credited.
 
 ## License
-<<<<<<< HEAD
 `sven/flex-env` is licenced under the MIT License (MIT). See the [license file](LICENSE.md)
 for more information.
-=======
-`sven/flex-env` is licenced under the MIT License (MIT). Please see the
-[license file](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
