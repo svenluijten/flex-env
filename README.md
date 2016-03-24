@@ -17,7 +17,7 @@ mouse again!
 Via [composer](http://getcomposer.org):
 
 ```bash
-$ composer require sven/flex-env:~2.0 --dev
+$ composer require sven/flex-env --dev
 ```
 
 Alternatively, add the package to your dev dependencies in `composer.json` and run
@@ -26,7 +26,7 @@ Alternatively, add the package to your dev dependencies in `composer.json` and r
 ```json
 {
     "require-dev": {
-        "sven/flex-env": "~2.0"
+        "sven/flex-env": "^2.0"
     }
 }
 ```
