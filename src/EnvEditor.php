@@ -41,7 +41,7 @@ class EnvEditor
     {
         $env = $this->parseFile();
 
-        $result = $env->filter(function($value) use ($key) {
+        $result = $env->filter(function(Collection $value) use ($key) {
             return $value->first() == $key;
         })->first();
 
@@ -94,7 +94,7 @@ class EnvEditor
         $env = $this->parseFile();
         $result = [];
 
-        $env->each(function($value) use (&$result) {
+        $env->each(function(Collection $value) use (&$result) {
             return $result[$value->first()] = $value->get(1);
         });
 
