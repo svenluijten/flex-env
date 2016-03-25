@@ -8,6 +8,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![Code Climate][ico-codeclimate]][link-codeclimate]
 [![Code Quality][ico-quality]][link-quality]
+[![SensioLabs Insight][ico-insight]][link-insight]
 
 This package adds a handful of useful commands to edit your `.env` file in Laravel
 directly from the command line with a simple, human readable API. Never touch the
@@ -85,9 +86,11 @@ for more information.
 [ico-travis]: https://img.shields.io/travis/svenluijten/flex-env.svg?style=flat-square
 [ico-codeclimate]: https://img.shields.io/codeclimate/github/svenluijten/flex-env.svg?style=flat-square
 [ico-quality]: https://img.shields.io/scrutinizer/g/svenluijten/flex-env.svg?style=flat-square
+[ico-insight]: https://img.shields.io/sensiolabs/i/026fa8bd-8a35-4a0d-a616-3e47c68cfd53.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
 [link-downloads]: https://packagist.org/packages/sven/flex-env
 [link-travis]: https://travis-ci.org/svenluijten/flex-env
 [link-codeclimate]: https://codeclimate.com/github/svenluijten/flex-env
 [link-quality]: https://scrutinizer-ci.com/g/svenluijten/flex-env/?branch=master
+[link-insight]: https://insight.sensiolabs.com/projects/026fa8bd-8a35-4a0d-a616-3e47c68cfd53
