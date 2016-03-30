@@ -34,7 +34,7 @@ class SetEnv extends Command
     {
         $env = new EnvEditor(base_path('.env'));
         $key = strtoupper($this->argument('key'));
-        $value = $this->argument('value');
+        $value = (string) $this->argument('value');
         $linebreak = (bool) $this->option('line-break');
 
         $result = $env->set($key, $value, $linebreak)->get($key);
