@@ -18,7 +18,7 @@ abstract class BaseTest extends \Orchestra\Testbench\TestCase
      */
     public function setUp()
     {
-        $this->flex = new EnvEditor(__DIR__ . '/assets/.env');
+        $this->flex = new EnvEditor(__DIR__.'/assets/.env');
     }
 
     /**

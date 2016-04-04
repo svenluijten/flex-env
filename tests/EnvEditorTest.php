@@ -7,14 +7,14 @@ class EnvEditorTest extends BaseTest
     /** @test */
     public function it_creates_an_env_file_if_none_exists()
     {
-        $this->assertEquals(__DIR__ . '/assets/.env', $this->flex->getPath());
+        $this->assertEquals(__DIR__.'/assets/.env', $this->flex->getPath());
     }
 
     /** @test */
     public function it_can_read_entries()
     {
-        file_put_contents(__DIR__ . '/assets/.env', 'TEST=hello-world');
-        file_put_contents(__DIR__ . '/assets/.env', "\nFOO_BAR=something else", FILE_APPEND);
+        file_put_contents(__DIR__.'/assets/.env', 'TEST=hello-world');
+        file_put_contents(__DIR__.'/assets/.env', "\nFOO_BAR=something else", FILE_APPEND);
 
         $this->assertEquals('hello-world', $this->flex->get('TEST'));
         $this->assertEquals('something else', $this->flex->get('FOO_BAR'));
