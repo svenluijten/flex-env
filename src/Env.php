@@ -4,7 +4,7 @@ namespace Sven\FlexEnv;
 
 use Illuminate\Support\Collection;
 
-class EnvEditor
+class Env
 {
     /**
      * @var string
@@ -17,7 +17,7 @@ class EnvEditor
     protected $previous;
 
     /**
-     * Instantiate the EnvEditor.
+     * Instantiate the Env.
      *
      * @param string $path
      */
@@ -54,7 +54,7 @@ class EnvEditor
      * @param  string  $key
      * @param  string  $value
      * @param  boolean $linebreak
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return \Sven\FlexEnv\Env
      */
     public function set($key, $value, $linebreak = false)
     {
@@ -73,7 +73,7 @@ class EnvEditor
     /**
      * Delete an entry from the .env file.
      * @param  string $key
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return \Sven\FlexEnv\Env
      */
     public function delete($key)
     {
@@ -104,7 +104,7 @@ class EnvEditor
     /**
      * Rolls the .env file back to the way it was before performing the command.
      *
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return \Sven\FlexEnv\Env
      */
     public function rollback()
     {
@@ -149,7 +149,7 @@ class EnvEditor
      * @param  string  $old
      * @param  string  $new
      * @param  integer $append
-     * @return \Sven\FlexEnv\EnvEditor
+     * @return \Sven\FlexEnv\Env
      */
     public function replaceInFile($old, $new, $append = 0)
     {

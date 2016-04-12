@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
+use Sven\FlexEnv\Env;
 use Illuminate\Console\Command;
-use Sven\FlexEnv\EnvEditor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class SetEnv extends Command
@@ -23,7 +23,7 @@ class SetEnv extends Command
      *
      * @var string
      */
-    protected $description = 'Set an environment key to the given value.';
+    protected $description = 'Set an environment key to the given value';
 
     /**
      * Execute the console command.
@@ -32,7 +32,7 @@ class SetEnv extends Command
      */
     public function handle()
     {
-        $env = new EnvEditor(base_path('.env'));
+        $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));
         $value = (string) $this->argument('value');
         $linebreak = (bool) $this->option('line-break');
@@ -45,7 +45,7 @@ class SetEnv extends Command
             return $this->error('Could not set the value in your .env file, reverting...');
         }
 
-        return $this->comment("Successfully set \"$key\" to \"$value\" in your .env file.");
+        return $this->comment("Successfully set [$key] to [$value] in your .env file.");
     }
 
     /**

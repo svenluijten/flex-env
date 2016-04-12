@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
+use Sven\FlexEnv\Env;
 use Illuminate\Console\Command;
-use Sven\FlexEnv\EnvEditor;
 
 class ListEnv extends Command
 {
@@ -19,7 +19,7 @@ class ListEnv extends Command
      *
      * @var string
      */
-    protected $description = 'Shows all the current entries in your .env file.';
+    protected $description = 'Shows all the current entries in your .env file';
 
     /**
      * Execute the console command.
@@ -28,7 +28,7 @@ class ListEnv extends Command
      */
     public function handle()
     {
-        $env = new EnvEditor(base_path('.env'));
+        $env = new Env(base_path('.env'));
         $data = [];
 
         foreach ($env->all() as $key => $value) {

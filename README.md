@@ -39,7 +39,6 @@ Next, add the `FlexEnvServiceProvider` to your `providers` array in `config/app.
 'providers' => [
     ...
     Sven\FlexEnv\FlexEnvServiceProvider::class,
-    ...
 ]
 ```
 
@@ -50,7 +49,7 @@ and you will see them in the list.
 ```bash
 # Create or edit an entry in your .env file:
 $ php artisan env:set {key} {value} [--line-break|-L]
-# Add the --line-break (or -L) option to insert a newline before the entry.
+# Add the --line-break (or -L) option to insert a line break before the entry.
 ```
 
 ```bash

@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
+use Sven\FlexEnv\Env;
 use Illuminate\Console\Command;
-use Sven\FlexEnv\EnvEditor;
 use Symfony\Component\Console\Input\InputArgument;
 
 class GetEnv extends Command
@@ -20,7 +20,7 @@ class GetEnv extends Command
      *
      * @var string
      */
-    protected $description = 'Get an entry from your .env file.';
+    protected $description = 'Get an entry from your .env file';
 
     /**
      * Execute the console command.
@@ -29,15 +29,15 @@ class GetEnv extends Command
      */
     public function handle()
     {
-        $env = new EnvEditor(base_path('.env'));
+        $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));
         $result = $env->get($key);
 
         if ($result == '' || is_null($result)) {
-            return $this->error("Could not find a value for \"$key\" in your .env file.");
+            return $this->error("Could not find a value for [$key] in your .env file.");
         }
 
-        return $this->comment("The value for \"$key\" is \"$result\".");
+        return $this->comment("The value for [$key] is \"$result\".");
     }
 
     /**
