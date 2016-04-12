@@ -39,16 +39,4 @@ class GetEnv extends Command
 
         return $this->comment("The value for [$key] is \"$result\".");
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['key', InputArgument::REQUIRED, 'The key of the entry in your .env to retrieve.'],
-        ];
-    }
 }

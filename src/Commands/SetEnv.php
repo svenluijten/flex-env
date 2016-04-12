@@ -47,17 +47,4 @@ class SetEnv extends Command
 
         return $this->comment("Successfully set [$key] to [$value] in your .env file.");
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['key', InputArgument::REQUIRED, 'The key to set in your .env file.'],
-            ['value', InputArgument::REQUIRED, 'The value to set it to.'],
-        ];
-    }
 }

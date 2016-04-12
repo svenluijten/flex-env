@@ -42,16 +42,4 @@ class DeleteEnv extends Command
 
         return $this->comment("Successfully deleted the entry \"$key\" from your .env file.");
     }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['key', InputArgument::REQUIRED, 'The key of the entry in your .env to delete.'],
-        ];
-    }
 }
