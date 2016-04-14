@@ -2,6 +2,7 @@
 
 namespace Sven\FlexEnv\Commands;
 
+use Sven\FlexEnv\Env;
 use Illuminate\Console\Command;
 
 class ExampleEnv extends Command
