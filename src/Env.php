@@ -109,15 +109,15 @@ class Env
     /**
      * Copy the .env file to the given destination.
      *
-     * @param  string  $destination     Full path to copy the file to
-     * @param  boolean $forDistribution Whether or not to include values
+     * @param  string  $destination   Full path to copy the file to
+     * @param  boolean $excludeValues Whether or not to include values
      * @return boolean
      */
     public function copy($destination, $excludeValues = false)
     {
         $env = $this->parseFile();
 
-        dd($env);
+        //
     }
 
     /**
