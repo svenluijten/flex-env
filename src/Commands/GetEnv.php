@@ -4,7 +4,6 @@ namespace Sven\FlexEnv\Commands;
 
 use Sven\FlexEnv\Env;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 class GetEnv extends Command
 {
