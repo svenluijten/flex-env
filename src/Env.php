@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 class Env
 {
     /**
-     * @var boolean
+     * @var bool
      */
     const COPY_FOR_DISTRIBUTION = true;
 
@@ -28,7 +28,7 @@ class Env
      */
     public function __construct($path)
     {
-        if ( ! file_exists($path)) {
+        if (!file_exists($path)) {
             file_put_contents($path, '');
         }
 
@@ -39,14 +39,15 @@ class Env
     /**
      * Get an entry from the .env file by key.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return string
      */
     public function get($key)
     {
         $env = $this->parseFile();
 
-        $result = $env->filter(function(Collection $value) use ($key) {
+        $result = $env->filter(function (Collection $value) use ($key) {
             return $value->first() == $key;
         })->first();
 
@@ -56,9 +57,10 @@ class Env
     /**
      * Set the value of the given key to the value supplied.
      *
-     * @param  string  $key
-     * @param  string  $value
-     * @param  boolean $linebreak
+     * @param string $key
+     * @param string $value
+     * @param bool   $linebreak
+     *
      * @return \Sven\FlexEnv\Env
      */
     public function set($key, $value, $linebreak = false)
@@ -66,7 +68,7 @@ class Env
         $oldValue = $this->get($key);
         $new = $linebreak ? "\n$key=$value" : "$key=$value";
 
-        if ( ! is_null($oldValue)) {
+        if (!is_null($oldValue)) {
             return $this->replaceInFile("$key=$oldValue", $new);
         }
 
@@ -77,7 +79,9 @@ class Env
 
     /**
      * Delete an entry from the .env file.
-     * @param  string $key
+     *
+     * @param string $key
+     *
      * @return \Sven\FlexEnv\Env
      */
     public function delete($key)
@@ -99,7 +103,7 @@ class Env
         $env = $this->parseFile();
         $result = [];
 
-        $env->each(function(Collection $value) use (&$result) {
+        $env->each(function (Collection $value) use (&$result) {
             return $result[$value->first()] = $value->get(1);
         });
 
@@ -109,9 +113,10 @@ class Env
     /**
      * Copy the .env file to the given destination.
      *
-     * @param  string  $destination   Full path to copy the file to
-     * @param  boolean $excludeValues Whether or not to include values
-     * @return boolean
+     * @param string $destination   Full path to copy the file to
+     * @param bool   $excludeValues Whether or not to include values
+     *
+     * @return bool
      */
     public function copy($destination, $excludeValues = false)
     {
@@ -151,11 +156,11 @@ class Env
     {
         $contents = file_get_contents($this->getPath());
         $lines = new Collection(explode("\n", $contents));
-        $result = new Collection;
+        $result = new Collection();
 
-        $lines->filter(function($value) {
+        $lines->filter(function ($value) {
             return $value;
-        })->each(function($value) use ($result) {
+        })->each(function ($value) use ($result) {
             $result->push(new Collection(explode('=', $value)));
         });
 
@@ -165,9 +170,10 @@ class Env
     /**
      * Replace a part of the .env file.
      *
-     * @param  string  $old
-     * @param  string  $new
-     * @param  integer $append
+     * @param string $old
+     * @param string $new
+     * @param int    $append
+     *
      * @return \Sven\FlexEnv\Env
      */
     public function replaceInFile($old, $new, $append = 0)
