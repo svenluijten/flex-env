@@ -2,9 +2,8 @@
 
 namespace Sven\FlexEnv\Tests;
 
-use Sven\FlexEnv\Env;
-use Sven\FlexEnv\FlexEnvServiceProvider;
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Sven\FlexEnv\Env;
 
 abstract class EnvTestCase extends AbstractPackageTestCase
 {
