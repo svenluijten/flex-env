@@ -30,7 +30,7 @@ class GetEnv extends Command
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));
-        $result = $env->get($key);
+        $result = str_replace('"', '', $env->get($key));
 
         if ($result == '' || is_null($result)) {
             return $this->error("Could not find a value for [$key] in your .env file.");
