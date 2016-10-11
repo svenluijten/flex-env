@@ -73,4 +73,26 @@ class EnvTest extends EnvTestCase
             $this->flex->all()
         );
     }
+
+    /** @test */
+    public function it_can_set_values_with_spaces()
+    {
+        $result = $this->flex->set('HELLO_WORLD', 'hello world')->get('HELLO_WORLD');
+
+        $this->assertEquals('hello world', $result);
+    }
+
+    /** @test */
+    public function it_can_list_values_with_spaces()
+    {
+        $this->flex->set('HELLO_WORLD', 'hello world')
+		   ->set('TEST_VARIABLE', 'test variable')
+		   ->set('VARIABLE', 'variable');
+
+	$this->assertEquals(
+	    ['HELLO_WORLD' => 'hello world', 'TEST_VARIABLE' => 'test variable',
+	    'VARIABLE' => 'variable'],
+            $this->flex->all()
+        );
+    }
 }
