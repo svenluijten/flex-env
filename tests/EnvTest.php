@@ -86,12 +86,12 @@ class EnvTest extends EnvTestCase
     public function it_can_list_values_with_spaces()
     {
         $this->flex->set('HELLO_WORLD', 'hello world')
-		   ->set('TEST_VARIABLE', 'test variable')
-		   ->set('VARIABLE', 'variable');
+           ->set('TEST_VARIABLE', 'test variable')
+           ->set('VARIABLE', 'variable');
 
-	$this->assertEquals(
-	    ['HELLO_WORLD' => 'hello world', 'TEST_VARIABLE' => 'test variable',
-	    'VARIABLE' => 'variable'],
+        $this->assertEquals(
+        ['HELLO_WORLD' => 'hello world', 'TEST_VARIABLE' => 'test variable',
+        'VARIABLE'     => 'variable', ],
             $this->flex->all()
         );
     }

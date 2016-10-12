@@ -36,10 +36,9 @@ class SetEnv extends Command
         $value = (string) $this->argument('value');
         $linebreak = (bool) $this->option('line-break');
 
-	if (preg_match('/\s/', $value))
-	{
-		$value = "\"$value\"";
-	}
+        if (preg_match('/\s/', $value)) {
+            $value = "\"$value\"";
+        }
 
         $result = $env->set($key, $value, $linebreak)->get($key);
 
