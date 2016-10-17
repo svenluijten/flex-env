@@ -69,11 +69,13 @@ $ php artisan env:list
 
 All changes you made should now be reflected in your `.env` file.
 
-## Contributing
+## Inspiration
 Inspiration for this package came from [LeShadow's ArtisanExtended](https://github.com/LeShadow/ArtisanExtended).
 
-All contributions (in the form of pull requests, issues and feature-requests) are
-welcome and will always be properly credited.
+## Contributing
+All contributions (pull requests, issues and feature requests) are
+welcome. Make sure to read through the [CONTRIBUTING.md](CONTRIBUTING.md) first,
+though. See the [contributors page](../../graphs/contributors) for all contributors.
 
 ## License
 `sven/flex-env` is licenced under the MIT License (MIT). See the [license file](LICENSE.md)
