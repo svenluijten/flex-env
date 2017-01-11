@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
 use Sven\FlexEnv\Env;
+use Illuminate\Console\Command;
 
 class DeleteEnv extends Command
 {
@@ -33,7 +33,7 @@ class DeleteEnv extends Command
 
         $result = $env->delete($key)->get($key);
 
-        if ($result !== '' && !is_null($result)) {
+        if ($result !== '' && ! is_null($result)) {
             $env->rollback();
 
             return $this->comment("No value was found for \"$key\" in the .env file, nothing was changed.");

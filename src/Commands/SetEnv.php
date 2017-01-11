@@ -2,8 +2,8 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
 use Sven\FlexEnv\Env;
+use Illuminate\Console\Command;
 
 class SetEnv extends Command
 {
