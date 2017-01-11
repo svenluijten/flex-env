@@ -78,7 +78,7 @@ welcome. Make sure to read through the [CONTRIBUTING.md](CONTRIBUTING.md) first,
 though. See the [contributors page](../../graphs/contributors) for all contributors.
 
 ## License
-`sven/flex-env` is licenced under the MIT License (MIT). See the [license file](LICENSE.md)
+`sven/flex-env` is licensed under the MIT License (MIT). See the [license file](LICENSE.md)
 for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
