@@ -28,7 +28,7 @@ class Env
      */
     public function __construct($path)
     {
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             file_put_contents($path, '');
         }
 
@@ -68,7 +68,7 @@ class Env
         $oldValue = $this->get($key);
         $new = $linebreak ? "\n$key=$value" : "$key=$value";
 
-        if (!is_null($oldValue)) {
+        if (! is_null($oldValue)) {
             return $this->replaceInFile("$key=$oldValue", $new);
         }
 
