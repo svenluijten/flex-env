@@ -13,21 +13,23 @@ class FlexEnvServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app['env:set'] = $this->app->share(function () {
+        $app = $this->app;
+        
+        $app['env:set'] = function($app) {
             return new Commands\SetEnv();
-        });
+        };
 
-        $this->app['env:get'] = $this->app->share(function () {
+        $app['env:get'] = function($app) {
             return new Commands\GetEnv();
-        });
+        };
 
-        $this->app['env:delete'] = $this->app->share(function () {
+        $app['env:delete'] = function($app) {
             return new Commands\DeleteEnv();
-        });
+        };
 
-        $this->app['env:list'] = $this->app->share(function () {
+        $app['env:list'] = function($app) {
             return new Commands\ListEnv();
-        });
+        };
 
         $this->commands(
             'env:set',
