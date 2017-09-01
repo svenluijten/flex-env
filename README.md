@@ -1,77 +1,110 @@
 ![flex-env](https://cloud.githubusercontent.com/assets/11269635/12526309/85a09084-c16c-11e5-8099-cddf6f8fce78.jpg)
 
 # Laravel FlexEnv
-
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Code Climate][ico-codeclimate]][link-codeclimate]
-[![Code Quality][ico-quality]][link-quality]
+[![Build Status][ico-circleci]][link-circleci]
 [![StyleCI][ico-styleci]][link-styleci]
 
-This package adds a handful of useful commands to edit your `.env` file in Laravel
-directly from the command line with a simple, human readable API. Never touch the
-mouse again!
+This package allows you to create, show, edit, update, and delete entries in
+your `.env` file in a Laravel project via `php artisan`, the command line
+we all know and love.
+
+## Index
+- [Installation](#installation)
+  - [Downloading](#downloading)
+  - [Registering the service provider](#registering-the-service-provider)
+- [Usage](#usage)
+  - [Create or edit an entry](#create-or-edit-an-entry)
+  - [Delete an entry](#delete-an-entry)
+  - [Inspect an entry](#inspect-an-entry)
+  - [List all entries](#list-all-entries)
+- [Inspiration](#inspiration)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
+You'll have to follow a couple of simple steps to install this package.
+
+### Downloading
 Via [composer](http://getcomposer.org):
 
 ```bash
-$ composer require sven/flex-env --dev
+$ composer require sven/flex-env:^3.0 --dev
 ```
 
-Alternatively, add the package to your dev dependencies in `composer.json` and run
-`composer update` afterwards:
+Or add the package to your development dependencies in `composer.json` and run
+`composer update sven/flex-en` to download the package:
 
 ```json
 {
     "require-dev": {
-        "sven/flex-env": "^2.0"
+        "sven/flex-env": "^3.0"
     }
 }
 ```
 
+### Registering the service provider
+If you're using Laravel 5.5, you can skip this step. The service provider will have already been registered
+thanks to auto-discovery. 
 
-**Note:** If you're using Laravel 5.5, you're done! The service provider is automatically registered in the container,
-thanks to [auto-discovery](https://medium.com/@taylorotwell/package-auto-discovery-in-laravel-5-5-ea9e3ab20518).
-
-Next, add the `FlexEnvServiceProvider` to your `providers` array in `config/app.php`:
+Otherwise, register `Sven\FlexEnv\ServiceProvider::class` manually in your `AppServiceProvider`'s
+`register` method:
 
 ```php
-// config/app.php
-'providers' => [
-    ...
-    Sven\FlexEnv\FlexEnvServiceProvider::class,
-]
+public function register()
+{
+    if ($this->app->environment() !== 'production') {
+        $this->app->register(\Sven\FlexEnv\ServiceProvider::class);
+    }    
+}
 ```
 
 ## Usage
-The commands in this package should now be registered. Simply run `php artisan`,
-and you will see them in the list.
+The commands in this package should now be registered. If you now run `php artisan`,
+you'll see them in the list:
 
+- `env:set`
+- `env:delete`
+- `env:get`
+- `env:list`
+
+### Create or edit an entry
 ```bash
-# Create or edit an entry in your .env file:
-$ php artisan env:set {key} {value} [--line-break|-L]
-# Add the --line-break (or -L) option to insert a line break before the entry.
+$ php artisan env:set NEW_KEY "your key's value"
 ```
 
-```bash
-# Delete an entry from your .env file:
-$ php artisan env:delete {key}
-```
+You can use the `--after` flag to specify where in the `.env` file the entry should go:
 
 ```bash
-# Show the value of the given key from your .env file:
-$ php artisan env:get {key}
+$ php artisan env:set NEW_KEY "your key's value" --after=APP_URL
 ```
 
+If the environment variable `APP_URL` doesn't exist, the new variable will be added to
+the end of the file.
+
+### Delete an entry
 ```bash
-# Show the entire .env file:
+$ php artisan env:delete SOME_KEY
+```
+
+This will ask for your confirmation. If you want to remove the view without being asked,
+use the `--force` flag: 
+
+```bash
+$ php artisan env:delete SOME_KEY --force
+```
+
+### Inspect an entry
+```bash
+$ php artisan env:get SOME_KEY
+```
+
+### List all entries
+```bash
 $ php artisan env:list
 ```
-
-All changes you made should now be reflected in your `.env` file.
 
 ## Inspiration
 Inspiration for this package came from [LeShadow's ArtisanExtended](https://github.com/LeShadow/ArtisanExtended).
@@ -88,14 +121,10 @@ for more information.
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/svenluijten/flex-env.svg?style=flat-square
-[ico-codeclimate]: https://img.shields.io/codeclimate/github/svenluijten/flex-env.svg?style=flat-square
-[ico-quality]: https://img.shields.io/scrutinizer/g/svenluijten/flex-env.svg?style=flat-square
+[ico-circleci]: https://img.shields.io/circleci/project/github/svenluijten/artisan-view.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/49644781/shield
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
 [link-downloads]: https://packagist.org/packages/sven/flex-env
-[link-travis]: https://travis-ci.org/svenluijten/flex-env
-[link-codeclimate]: https://codeclimate.com/github/svenluijten/flex-env
-[link-quality]: https://scrutinizer-ci.com/g/svenluijten/flex-env/?branch=master
+[link-circleci]: https://circleci.com/gh/svenluijten/artisan-view
 [link-styleci]: https://styleci.io/repos/49644781
