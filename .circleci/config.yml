@@ -1,0 +1,11 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/flex-env
+      - image: circleci/php:7.1-cli
+    steps:
+      - checkout
+      - run: composer self-update
+      - run: composer install -n --prefer-dist --no-progress
+      - run: ./vendor/bin/phpunit
