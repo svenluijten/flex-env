@@ -52,7 +52,7 @@ class EnvParser implements Parser
     protected function removeEmptyLines(array $lines)
     {
         return array_filter($lines, function ($line) {
-            return !empty($line);
+            return ! empty($line);
         });
     }
 }
