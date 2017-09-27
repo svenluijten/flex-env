@@ -89,7 +89,7 @@ the end of the file.
 $ php artisan env:delete SOME_KEY
 ```
 
-This will ask for your confirmation. If you want to remove the view without being asked,
+This will ask for your confirmation. If you want to remove the entry without being asked,
 use the `--force` flag: 
 
 ```bash
