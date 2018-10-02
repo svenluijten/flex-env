@@ -66,6 +66,11 @@ class Env
     public function set($key, $value, $linebreak = false)
     {
         $oldValue = $this->get($key);
+
+        if (!preg_match('/\d/', $value) || preg_match('/=/', $value)) {
+            $value = "\"$value\"";
+        }
+
         $new = $linebreak ? "\n$key=$value" : "$key=$value";
 
         if (! is_null($oldValue)) {
@@ -161,7 +166,10 @@ class Env
         $lines->filter(function ($value) {
             return $value;
         })->each(function ($value) use ($result) {
-            $result->push(new Collection(explode('=', $value)));
+            preg_match('/([a-zA-Z_-]+)\=(.+)/', $value, $regexResult);
+
+            array_shift($regexResult);
+            $result->push(new Collection($regexResult));
         });
 
         return $result;

@@ -43,7 +43,7 @@ class EnvTest extends EnvTestCase
                              ->get('HELLO_WORLD');
 
         $this->assertEquals(
-            'this-is-a-test',
+            '"this-is-a-test"',
             $result
         );
     }
@@ -54,7 +54,7 @@ class EnvTest extends EnvTestCase
         $result1 = $this->flex->set('FOO_BAR', 'biz-baz')
                               ->get('FOO_BAR');
 
-        $this->assertEquals('biz-baz', $result1);
+        $this->assertEquals('"biz-baz"', $result1);
 
         $result2 = $this->flex->delete('FOO_BAR')
                               ->get('FOO_BAR');
@@ -69,7 +69,7 @@ class EnvTest extends EnvTestCase
                    ->set('FOO_BAR', 'biz-baz');
 
         $this->assertEquals(
-            ['TESTING' => 'hello-world', 'FOO_BAR' => 'biz-baz'],
+            ['TESTING' => '"hello-world"', 'FOO_BAR' => '"biz-baz"'],
             $this->flex->all()
         );
     }
@@ -80,7 +80,7 @@ class EnvTest extends EnvTestCase
         $result = $this->flex->set('HELLO_WORLD', 'hello world')
                              ->get('HELLO_WORLD');
 
-        $this->assertEquals('hello world', $result);
+        $this->assertEquals('"hello world"', $result);
     }
 
     /** @test */
@@ -91,8 +91,26 @@ class EnvTest extends EnvTestCase
                    ->set('VARIABLE', 'variable');
 
         $this->assertEquals(
-            ['HELLO_WORLD' => 'hello world', 'TEST_VARIABLE' => 'test variable', 'VARIABLE' => 'variable'],
+            ['HELLO_WORLD' => '"hello world"', 'TEST_VARIABLE' => '"test variable"', 'VARIABLE' => '"variable"'],
             $this->flex->all()
         );
+    }
+
+    /** @test */
+    public function it_can_set_values_with_special_characters()
+    {
+        $this->flex->set('MAIL_USERNAME', 'name@example.com')
+            ->set('MAIL_PASSWORD', '==hy6^gGbS+==')
+            ->set('MAIL_ENCRYPTION', 'tls');
+
+        $this->assertEquals(
+            ['MAIL_USERNAME' => '"name@example.com"', 'MAIL_PASSWORD' => '"==hy6^gGbS+=="', 'MAIL_ENCRYPTION' => '"tls"'],
+            $this->flex->all()
+        );
+
+        $this->assertEquals('
+MAIL_USERNAME="name@example.com"
+MAIL_PASSWORD="==hy6^gGbS+=="
+MAIL_ENCRYPTION="tls"', file_get_contents(__DIR__.'/assets/.env'));
     }
 }
