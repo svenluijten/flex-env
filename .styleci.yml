@@ -1,9 +1,10 @@
 preset: laravel
 
-linting: true
-
 risky: false
 
 enabled:
-  - phpdoc_order
-  - phpdoc_separation
+- phpdoc_order
+- phpdoc_separation
+
+disabled:
+- length_ordered_imports
