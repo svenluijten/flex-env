@@ -67,7 +67,7 @@ class Env
     {
         $oldValue = $this->get($key);
 
-        if (!preg_match('/\d/', $value) || preg_match('/=/', $value)) {
+        if (! preg_match('/\d/', $value) || preg_match('/=/', $value)) {
             $value = "\"$value\"";
         }
 
