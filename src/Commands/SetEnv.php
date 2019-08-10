@@ -24,12 +24,7 @@ class SetEnv extends Command
      */
     protected $description = 'Set an environment key to the given value';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));

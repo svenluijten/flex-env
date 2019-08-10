@@ -8,9 +8,11 @@ use Sven\FlexEnv\EnvParser;
 class EnvParserTest extends TestCase
 {
     /** @test */
-    public function it_parses_the_env_file()
+    public function it_parses_the_env_file(): void
     {
-        $parsed = EnvParser::make()->parse(
+        $parser = new EnvParser();
+
+        $parsed = $parser->parse(
             file_get_contents($this->app->environmentFilePath())
         );
 
@@ -19,9 +21,11 @@ class EnvParserTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_an_env_file_instance()
+    public function it_returns_an_env_file_instance(): void
     {
-        $parsed = EnvParser::make()->parse(
+        $parser = new EnvParser();
+
+        $parsed = $parser->parse(
             file_get_contents($this->app->environmentFilePath())
         );
 
