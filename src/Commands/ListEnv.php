@@ -21,12 +21,7 @@ class ListEnv extends Command
      */
     protected $description = 'Shows all the current entries in your .env file';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $env = new Env(base_path('.env'));
         $data = [];

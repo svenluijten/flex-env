@@ -21,12 +21,7 @@ class DeleteEnv extends Command
      */
     protected $description = 'Delete an entry from your .env file';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));
@@ -36,9 +31,13 @@ class DeleteEnv extends Command
         if ($result !== '' && ! is_null($result)) {
             $env->rollback();
 
-            return $this->comment("No value was found for \"$key\" in the .env file, nothing was changed.");
+            $this->comment("No value was found for \"$key\" in the .env file, nothing was changed.");
+
+            return 1;
         }
 
-        return $this->comment("Successfully deleted the entry \"$key\" from your .env file.");
+        $this->comment("Successfully deleted the entry \"$key\" from your .env file.");
+
+        return 0;
     }
 }

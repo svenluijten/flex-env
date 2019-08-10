@@ -22,12 +22,7 @@ class ExampleEnv extends Command
      */
     protected $description = 'Generate an environment file for distribution';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $env = new Env(base_path('.env'));
 

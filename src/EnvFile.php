@@ -2,10 +2,10 @@
 
 namespace Sven\FlexEnv;
 
-use Illuminate\Support\Str;
+use ArrayAccess;
 use Sven\FlexEnv\Traits\ArrayAccessible;
 
-class EnvFile implements \ArrayAccess
+class EnvFile implements ArrayAccess
 {
     use ArrayAccessible;
 
@@ -23,37 +23,26 @@ class EnvFile implements \ArrayAccess
     /**
      * @param string|int $offset
      * @param string     $value
-     *
-     * @return \Sven\FlexEnv\EnvFile
      */
-    public function set($offset, $value)
+    public function set($offset, $value): void
     {
         $this[$offset] = $value;
-
-        return $this;
     }
 
     /**
      * @param string|int $offset
-     *
-     * @return \Sven\FlexEnv\EnvFile
      */
-    public function unset($offset)
+    public function unset($offset): void
     {
         unset($this[$offset]);
-
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return array_reduce(array_keys($this->values), function ($carry, $key) {
             $value = $this->get($key);
 
-            if (Str::contains($value, ' ')) {
+            if (preg_match('/[^a-z0-9]/i', $value)) {
                 $value = sprintf('"%s"', $value);
             }
 

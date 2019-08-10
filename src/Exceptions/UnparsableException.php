@@ -6,13 +6,10 @@ use InvalidArgumentException;
 
 class UnparsableException extends InvalidArgumentException
 {
-    public static function invalidLineSignature($actual)
+    public static function invalidLineSignature($actual): self
     {
         return new self(
-            sprintf(
-                'The line could not be parsed. Found "%s", expected `{STRING}={STRING}` or `{STRING}="{STRING}"`.',
-                $actual
-            )
+            'The line could not be parsed. Found "'.$actual.'", expected `{STRING}={STRING}` or `{STRING}="{STRING}"`.'
         );
     }
 }

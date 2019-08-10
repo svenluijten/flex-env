@@ -9,10 +9,7 @@ trait ArrayAccessible
      */
     protected $values = [];
 
-    /**
-     * @return string
-     */
-    protected function getValuesPropertyName()
+    protected function getValuesPropertyName(): string
     {
         return 'values';
     }

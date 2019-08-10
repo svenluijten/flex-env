@@ -21,12 +21,7 @@ class GetEnv extends Command
      */
     protected $description = 'Get an entry from your .env file';
 
-    /**
-     * Execute the console command.
-     *
-     * @return void
-     */
-    public function handle()
+    public function handle(): void
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));

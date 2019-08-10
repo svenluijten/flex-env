@@ -8,26 +8,13 @@ use Sven\FlexEnv\Exceptions\UnparsableException;
 
 class LineParser implements Parser
 {
-    /**
-     * @return \Sven\FlexEnv\LineParser
-     */
-    public static function make()
-    {
-        return new self();
-    }
-
-    /**
-     * @param string $line
-     *
-     * @return array
-     */
-    public function parse($line)
+    public function parse(string $line): array
     {
         if (! Str::contains($line, '=')) {
             throw UnparsableException::invalidLineSignature($line);
         }
 
-        list($key, $value) = explode('=', $line);
+        [$key, $value] = explode('=', $line);
 
         if (Str::startsWith($value, '"') && Str::endsWith($value, '"')) {
             $value = trim($value, '"');

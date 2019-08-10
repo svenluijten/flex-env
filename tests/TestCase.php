@@ -15,7 +15,7 @@ abstract class TestCase extends AbstractPackageTestCase
     /**
      * Set up the test suite.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ abstract class TestCase extends AbstractPackageTestCase
     /**
      * Tear down the test suite.
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         file_put_contents($this->app->environmentFilePath(), $this->original);
 

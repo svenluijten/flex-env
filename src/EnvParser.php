@@ -6,27 +6,16 @@ use Sven\FlexEnv\Contracts\Parser;
 
 class EnvParser implements Parser
 {
-    /**
-     * @return \Sven\FlexEnv\EnvParser
-     */
-    public static function make()
-    {
-        return new self();
-    }
-
-    /**
-     * @param string $env
-     *
-     * @return \Sven\FlexEnv\EnvFile
-     */
-    public function parse($env)
+    public function parse(string $env): EnvFile
     {
         $lines = $this->removeEmptyLines(
             $this->splitIntoLines($env)
         );
 
-        return array_reduce($lines, function (EnvFile $carry, $line) {
-            list($key, $value) = LineParser::make()->parse($line);
+        $parser = new LineParser();
+
+        return array_reduce($lines, function (EnvFile $carry, $line) use ($parser) {
+            [$key, $value] = $parser->parse($line);
 
             $carry[$key] = $value;
 
@@ -34,25 +23,13 @@ class EnvParser implements Parser
         }, new EnvFile);
     }
 
-    /**
-     * @param string $env
-     *
-     * @return array
-     */
-    protected function splitIntoLines($env)
+    protected function splitIntoLines(string $env): array
     {
         return explode(PHP_EOL, $env);
     }
 
-    /**
-     * @param array $lines
-     *
-     * @return array
-     */
-    protected function removeEmptyLines(array $lines)
+    protected function removeEmptyLines(array $lines): array
     {
-        return array_filter($lines, function ($line) {
-            return ! empty($line);
-        });
+        return array_filter($lines);
     }
 }
