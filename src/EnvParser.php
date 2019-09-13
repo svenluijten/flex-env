@@ -14,12 +14,12 @@ class EnvParser implements Parser
 
         $parser = new LineParser();
 
-        return array_reduce($lines, function (EnvFile $carry, $line) use ($parser) {
+        return array_reduce($lines, function (EnvFile $file, $line) use ($parser) {
             [$key, $value] = $parser->parse($line);
 
-            $carry[$key] = $value;
+            $file->set($key, $value);
 
-            return $carry;
+            return $file;
         }, new EnvFile);
     }
 
