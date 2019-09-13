@@ -3,46 +3,31 @@
 namespace Sven\FlexEnv\Commands;
 
 use Illuminate\Console\Command;
-use Sven\FlexEnv\Env;
+use Symfony\Component\Console\Input\InputArgument;
 
 class SetEnv extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'env:set
-                            {key : The key to change or set.}
-                            {value : The value to set the specified key to.}
-                            {--L|line-break : Whether or not the command should insert a linebreak before the entry.}';
+    /** @var string */
+    protected $name = 'env:set';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Set an environment key to the given value';
 
-    public function handle(): void
+    public function handle(Env $env): void
     {
-        $env = new Env(base_path('.env'));
-        $key = strtoupper($this->argument('key'));
-        $value = (string) $this->argument('value');
-        $linebreak = (bool) $this->option('line-break');
+        $envPath = $this->laravel->environmentFilePath();
 
-        if (preg_match('/\s/', $value)) {
-            $value = "\"$value\"";
-        }
+        $file = $env->load($envPath);
+        $file->set('FOO', 'some-value');
 
-        $result = $env->set($key, $value, $linebreak)->get($key);
+        $file->persist();
+    }
 
-        if ($result !== $value) {
-            $env->rollback();
-
-            return $this->error('Could not set the value in your .env file, reverting...');
-        }
-
-        return $this->comment("Successfully set [$key] to [$value] in your .env file.");
+    protected function getArguments()
+    {
+        return [
+            ['key', InputArgument::REQUIRED, 'The name of the environment variable to set.'],
+            ['value', InputArgument::REQUIRED, 'The value to set the environment variable to.'],
+        ];
     }
 }
