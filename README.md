@@ -4,7 +4,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-circleci]][link-circleci]
+[![Build Status][ico-build]][link-build]
 [![StyleCI][ico-styleci]][link-styleci]
 
 This package allows you to create, show, edit, update, and delete entries in
@@ -121,10 +121,10 @@ for more information.
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
-[ico-circleci]: https://img.shields.io/circleci/project/github/svenluijten/artisan-view.svg?style=flat-square
+[ico-build]: https://img.shields.io/travis/svenlujten/flex-env?style=flat-square
 [ico-styleci]: https://styleci.io/repos/49644781/shield
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
 [link-downloads]: https://packagist.org/packages/sven/flex-env
-[link-circleci]: https://circleci.com/gh/svenluijten/artisan-view
+[link-build]: https://travis-ci.org/svenluijten/flex-env
 [link-styleci]: https://styleci.io/repos/49644781
