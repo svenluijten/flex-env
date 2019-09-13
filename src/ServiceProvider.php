@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 class ServiceProvider extends LaravelServiceProvider implements DeferrableProvider
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function register()
     {
@@ -21,7 +21,7 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function provides()
     {
