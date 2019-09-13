@@ -2,24 +2,13 @@
 
 namespace Sven\FlexEnv;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider
+class ServiceProvider extends LaravelServiceProvider implements DeferrableProvider
 {
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
-     * Register the application services.
-     *
-     * @return void
+     * {@inheritDoc}
      */
     public function register()
     {
@@ -32,9 +21,7 @@ class ServiceProvider extends LaravelServiceProvider
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * {@inheritDoc}
      */
     public function provides()
     {
