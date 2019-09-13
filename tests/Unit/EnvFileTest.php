@@ -63,11 +63,11 @@ class EnvFileTest extends TestCase
         $nonAlphanum = str_split("!@#$%^*()_+~`=-'\"\\;:<>.,/? ");
 
         foreach ($nonAlphanum as $key => $character) {
-            $env->set('NON_ALPHANUM_'.($key+1), 'some'.$character.'value');
+            $env->set('NON_ALPHANUM_'.($key + 1), 'some'.$character.'value');
         }
 
         foreach ($nonAlphanum as $key => $character) {
-            $this->assertStringContainsString('NON_ALPHANUM_'.($key+1).'="some'.$character.'value"', (string) $env);
+            $this->assertStringContainsString('NON_ALPHANUM_'.($key + 1).'="some'.$character.'value"', (string) $env);
         }
     }
 }
