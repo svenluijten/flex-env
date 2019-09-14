@@ -33,6 +33,8 @@ class EnvExampleCommand extends EnvCommand
         $file = $this->laravel->environmentPath().DIRECTORY_SEPARATOR.$this->argument('name');
 
         $files->put($file, $contents);
+
+        return 0;
     }
 
     public function getArguments()
