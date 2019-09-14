@@ -2,44 +2,42 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FlexEnv\Env;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
+use Sven\FileConfig\Drivers\Env;
+use Symfony\Component\Console\Input\InputArgument;
 
-class ExampleEnv extends Command
+class ExampleEnv extends EnvCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'env:example
-                           {--name=.env.example : Name of the example environment file }';
+    /** @var string */
+    protected $name = 'env:example';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Generate an environment file for distribution';
 
-    public function handle(): int
+    public function handle(Filesystem $files): int
     {
-        $env = new Env(base_path('.env'));
+        $config = $this->config();
 
-        $name = (string) $this->option('name');
+        $values = Collection::make($config->all())
+            ->mapWithKeys(function ($value, $key) {
+                if (is_numeric($key) && $value === '') {
+                    return [$key => $value];
+                }
 
-        try {
-            $env->copy(
-                base_path($name, Env::COPY_FOR_DISTRIBUTION)
-            );
+                return [$key => ''];
+            });
 
-            return $this->comment("Successfully created the file [$name]");
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        $contents = (new Env())->export($values);
+        $file = $this->laravel->environmentPath().DIRECTORY_SEPARATOR.$this->argument('name');
 
-            return 1;
-        }
+        $files->put($file, $contents);
+    }
 
-        return 0;
+    public function getArguments()
+    {
+        return [
+            ['name', InputArgument::OPTIONAL, 'The name of the "distribution" file to generate.', '.env.example'],
+        ];
     }
 }

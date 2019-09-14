@@ -2,33 +2,24 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FlexEnv\Env;
+use Illuminate\Support\Collection;
 
-class ListEnv extends Command
+class ListEnv extends EnvCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'env:list';
+    /** @var string */
+    protected $name = 'env:list';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Shows all the current entries in your .env file';
 
     public function handle(): int
     {
-        $env = new Env(base_path('.env'));
-        $data = [];
+        $config = $this->config();
 
-        foreach ($env->all() as $key => $value) {
-            $data[] = [$key, $value];
-        }
+        $data = Collection::make($config->all())
+            ->reject(function ($value, $key) {
+                return $value === '' || ! is_string($key);
+            });
 
         $this->table(['Key', 'Value'], $data);
 

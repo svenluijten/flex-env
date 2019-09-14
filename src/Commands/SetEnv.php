@@ -2,13 +2,9 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FileConfig\Drivers\Env;
-use Sven\FileConfig\File;
-use Sven\FileConfig\Store;
 use Symfony\Component\Console\Input\InputArgument;
 
-class SetEnv extends Command
+class SetEnv extends EnvCommand
 {
     /** @var string */
     protected $name = 'env:set';
@@ -18,19 +14,12 @@ class SetEnv extends Command
 
     public function handle(): int
     {
-        $envPath = $this->laravel->environmentFilePath();
+        $config = $this->config();
 
-        $file = new File($envPath);
-        $config = new Store($file, new Env());
-
-        $config->set(
-            $this->argument('key'),
-            $this->argument('value')
-        );
-
+        $config->set($key = $this->key(), $this->value());
         $config->persist();
 
-        $this->info('Successfully set the value in the .env file.');
+        $this->info("Successfully set the value for \"$key\" in the .env file.");
 
         return 0;
     }

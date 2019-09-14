@@ -21,6 +21,7 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
             Commands\GetEnv::class,
             Commands\DeleteEnv::class,
             Commands\ListEnv::class,
+            Commands\ExampleEnv::class,
         ]);
     }
 
@@ -34,6 +35,7 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
             Commands\GetEnv::class,
             Commands\DeleteEnv::class,
             Commands\ListEnv::class,
+            Commands\ExampleEnv::class,
         ];
     }
 }
