@@ -26,7 +26,8 @@ class EnvExampleCommand extends EnvCommand
                 }
 
                 return [$key => ''];
-            });
+            })
+            ->toArray();
 
         $contents = (new Env())->export($values);
         $file = $this->laravel->environmentPath().DIRECTORY_SEPARATOR.$this->argument('name');
