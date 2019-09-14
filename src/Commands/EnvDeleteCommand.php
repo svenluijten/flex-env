@@ -4,7 +4,7 @@ namespace Sven\FlexEnv\Commands;
 
 use Symfony\Component\Console\Input\InputArgument;
 
-class DeleteEnv extends EnvCommand
+class EnvDeleteCommand extends EnvCommand
 {
     /** @var string */
     protected $name = 'env:delete';

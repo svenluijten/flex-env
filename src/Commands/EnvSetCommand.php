@@ -4,7 +4,7 @@ namespace Sven\FlexEnv\Commands;
 
 use Symfony\Component\Console\Input\InputArgument;
 
-class SetEnv extends EnvCommand
+class EnvSetCommand extends EnvCommand
 {
     /** @var string */
     protected $name = 'env:set';
