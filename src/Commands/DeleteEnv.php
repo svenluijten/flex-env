@@ -2,42 +2,32 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FlexEnv\Env;
+use Symfony\Component\Console\Input\InputArgument;
 
-class DeleteEnv extends Command
+class DeleteEnv extends EnvCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'env:delete {key}';
+    /** @var string */
+    protected $name = 'env:delete';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Delete an entry from your .env file';
 
     public function handle(): int
     {
-        $env = new Env(base_path('.env'));
-        $key = strtoupper($this->argument('key'));
+        $config = $this->config();
 
-        $result = $env->delete($key)->get($key);
-
-        if ($result !== '' && ! is_null($result)) {
-            $env->rollback();
-
-            $this->comment("No value was found for \"$key\" in the .env file, nothing was changed.");
-
-            return 1;
-        }
+        $config->delete($key = $this->key());
+        $config->persist();
 
         $this->comment("Successfully deleted the entry \"$key\" from your .env file.");
 
         return 0;
+    }
+
+    protected function getArguments()
+    {
+        return [
+            ['key', InputArgument::REQUIRED, 'The name of the environment variable to delete.'],
+        ];
     }
 }

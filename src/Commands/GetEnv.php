@@ -2,39 +2,37 @@
 
 namespace Sven\FlexEnv\Commands;
 
-use Illuminate\Console\Command;
-use Sven\FlexEnv\Env;
+use Symfony\Component\Console\Input\InputArgument;
 
-class GetEnv extends Command
+class GetEnv extends EnvCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'env:get {key}';
+    /** @var string */
+    protected $name = 'env:get';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $description = 'Get an entry from your .env file';
 
     public function handle(): int
     {
-        $env = new Env(base_path('.env'));
-        $key = strtoupper($this->argument('key'));
-        $result = str_replace('"', '', $env->get($key));
+        $config = $this->config();
 
-        if ($result == '' || is_null($result)) {
-            $this->error("Could not find a value for [$key] in your .env file.");
+        $value = $config->get($key = $this->key());
+
+        if ($value === null) {
+            $this->error("Could not find a value for \"$key\" in your .env file.");
 
             return 1;
         }
 
-        $this->comment("The value for [$key] is \"$result\".");
+        $this->line($value);
 
         return 0;
+    }
+
+    protected function getArguments()
+    {
+        return [
+            ['key', InputArgument::REQUIRED, 'The name of the environment variable to get.'],
+        ];
     }
 }
