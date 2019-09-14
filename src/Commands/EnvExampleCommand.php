@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Sven\FileConfig\Drivers\Env;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ExampleEnv extends EnvCommand
+class EnvExampleCommand extends EnvCommand
 {
     /** @var string */
     protected $name = 'env:example';

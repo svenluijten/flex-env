@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Sven\FileConfig\Store;
 use Symfony\Component\Console\Input\InputOption;
 
-class ListEnv extends EnvCommand
+class EnvListCommand extends EnvCommand
 {
     /** @var string */
     protected $name = 'env:list';

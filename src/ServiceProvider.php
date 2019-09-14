@@ -17,11 +17,11 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
         }
 
         $this->commands([
-            Commands\SetEnv::class,
-            Commands\GetEnv::class,
-            Commands\DeleteEnv::class,
-            Commands\ListEnv::class,
-            Commands\ExampleEnv::class,
+            Commands\EnvSetCommand::class,
+            Commands\EnvGetCommand::class,
+            Commands\EnvDeleteCommand::class,
+            Commands\EnvListCommand::class,
+            Commands\EnvExampleCommand::class,
         ]);
     }
 
@@ -31,11 +31,11 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
     public function provides()
     {
         return [
-            Commands\SetEnv::class,
-            Commands\GetEnv::class,
-            Commands\DeleteEnv::class,
-            Commands\ListEnv::class,
-            Commands\ExampleEnv::class,
+            Commands\EnvSetCommand::class,
+            Commands\EnvGetCommand::class,
+            Commands\EnvDeleteCommand::class,
+            Commands\EnvListCommand::class,
+            Commands\EnvExampleCommand::class,
         ];
     }
 }
