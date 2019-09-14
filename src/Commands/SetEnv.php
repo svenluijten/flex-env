@@ -3,6 +3,9 @@
 namespace Sven\FlexEnv\Commands;
 
 use Illuminate\Console\Command;
+use Sven\FileConfig\Drivers\Env;
+use Sven\FileConfig\File;
+use Sven\FileConfig\Store;
 use Symfony\Component\Console\Input\InputArgument;
 
 class SetEnv extends Command
@@ -13,14 +16,21 @@ class SetEnv extends Command
     /** @var string */
     protected $description = 'Set an environment key to the given value';
 
-    public function handle(Env $env): void
+    public function handle(): void
     {
         $envPath = $this->laravel->environmentFilePath();
 
-        $file = $env->load($envPath);
-        $file->set('FOO', 'some-value');
+        $file = new File($envPath);
+        $config = new Store($file, new Env());
 
-        $file->persist();
+        $config->set(
+            $this->argument('key'),
+            $this->argument('value')
+        );
+
+        $config->persist();
+
+        $this->info('Successfully set the value in the .env file.');
     }
 
     protected function getArguments()
