@@ -12,6 +12,10 @@ class ServiceProvider extends LaravelServiceProvider implements DeferrableProvid
      */
     public function register()
     {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
         $this->commands([
             Commands\SetEnv::class,
             Commands\GetEnv::class,
