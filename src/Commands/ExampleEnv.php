@@ -22,7 +22,7 @@ class ExampleEnv extends Command
      */
     protected $description = 'Generate an environment file for distribution';
 
-    public function handle(): void
+    public function handle(): int
     {
         $env = new Env(base_path('.env'));
 
@@ -35,7 +35,11 @@ class ExampleEnv extends Command
 
             return $this->comment("Successfully created the file [$name]");
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            $this->error($e->getMessage());
+
+            return 1;
         }
+
+        return 0;
     }
 }

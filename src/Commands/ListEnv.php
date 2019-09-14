@@ -21,7 +21,7 @@ class ListEnv extends Command
      */
     protected $description = 'Shows all the current entries in your .env file';
 
-    public function handle(): void
+    public function handle(): int
     {
         $env = new Env(base_path('.env'));
         $data = [];
@@ -30,6 +30,8 @@ class ListEnv extends Command
             $data[] = [$key, $value];
         }
 
-        return $this->table(['Key', 'Value'], $data);
+        $this->table(['Key', 'Value'], $data);
+
+        return 0;
     }
 }
