@@ -21,7 +21,7 @@ class DeleteEnv extends Command
      */
     protected $description = 'Delete an entry from your .env file';
 
-    public function handle(): void
+    public function handle(): int
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));

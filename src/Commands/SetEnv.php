@@ -16,7 +16,7 @@ class SetEnv extends Command
     /** @var string */
     protected $description = 'Set an environment key to the given value';
 
-    public function handle(): void
+    public function handle(): int
     {
         $envPath = $this->laravel->environmentFilePath();
 
@@ -31,6 +31,8 @@ class SetEnv extends Command
         $config->persist();
 
         $this->info('Successfully set the value in the .env file.');
+
+        return 0;
     }
 
     protected function getArguments()

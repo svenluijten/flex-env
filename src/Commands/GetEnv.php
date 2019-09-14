@@ -21,16 +21,20 @@ class GetEnv extends Command
      */
     protected $description = 'Get an entry from your .env file';
 
-    public function handle(): void
+    public function handle(): int
     {
         $env = new Env(base_path('.env'));
         $key = strtoupper($this->argument('key'));
         $result = str_replace('"', '', $env->get($key));
 
         if ($result == '' || is_null($result)) {
-            return $this->error("Could not find a value for [$key] in your .env file.");
+            $this->error("Could not find a value for [$key] in your .env file.");
+
+            return 1;
         }
 
-        return $this->comment("The value for [$key] is \"$result\".");
+        $this->comment("The value for [$key] is \"$result\".");
+
+        return 0;
     }
 }
