@@ -4,6 +4,7 @@ namespace Sven\FlexEnv\Commands;
 
 use Illuminate\Support\Collection;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class EnvSyncCommand extends EnvCommand
 {
@@ -56,6 +57,24 @@ class EnvSyncCommand extends EnvCommand
     {
         return [
             ['file', InputArgument::REQUIRED, 'The name of the example file to use.', '.env.example'],
+        ];
+    }
+
+    protected function getOptions()
+    {
+        return [
+            [
+                'force',
+                null,
+                InputOption::VALUE_NONE,
+                'Do not ask for confirmation before synchronizing the environment files.',
+            ],
+            [
+                'dry-run',
+                null,
+                InputOption::VALUE_NONE,
+                'Only show the values that would be added to the environment file.',
+            ],
         ];
     }
 }
