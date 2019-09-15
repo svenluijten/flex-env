@@ -56,7 +56,7 @@ class EnvSyncCommand extends EnvCommand
     public function getArguments()
     {
         return [
-            ['file', InputArgument::REQUIRED, 'The name of the example file to use.', '.env.example'],
+            ['file', InputArgument::OPTIONAL, 'The name of the example file to use.', '.env.example'],
         ];
     }
 
