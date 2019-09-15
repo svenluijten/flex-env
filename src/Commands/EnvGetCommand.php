@@ -10,7 +10,7 @@ class EnvGetCommand extends EnvCommand
     protected $name = 'env:get';
 
     /** @var string */
-    protected $description = 'Get an entry from your .env file';
+    protected $description = 'Get an entry from your environment file.';
 
     public function handle(): int
     {
@@ -19,7 +19,7 @@ class EnvGetCommand extends EnvCommand
         $value = $config->get($key = $this->key());
 
         if ($value === null) {
-            $this->error("Could not find a value for \"$key\" in your .env file.");
+            $this->error("Could not find a value for \"$key\" in your environment file.");
 
             return 1;
         }

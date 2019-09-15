@@ -13,7 +13,7 @@ class EnvExampleCommand extends EnvCommand
     protected $name = 'env:example';
 
     /** @var string */
-    protected $description = 'Generate an environment file for distribution';
+    protected $description = 'Generate an "example" environment file for distribution.';
 
     public function handle(Filesystem $files): int
     {
@@ -40,7 +40,7 @@ class EnvExampleCommand extends EnvCommand
     public function getArguments()
     {
         return [
-            ['name', InputArgument::OPTIONAL, 'The name of the "distribution" file to generate.', '.env.example'],
+            ['name', InputArgument::OPTIONAL, 'The name of the "example" file to generate.', '.env.example'],
         ];
     }
 }
