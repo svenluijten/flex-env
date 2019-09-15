@@ -12,7 +12,7 @@ class EnvListCommand extends EnvCommand
     protected $name = 'env:list';
 
     /** @var string */
-    protected $description = 'Shows all the current entries in your .env file';
+    protected $description = 'Shows all the current entries in your environment file.';
 
     public function handle(): int
     {
@@ -35,7 +35,7 @@ class EnvListCommand extends EnvCommand
     protected function getOptions()
     {
         return [
-            ['resolve-references', 'r', InputOption::VALUE_NONE, 'Should references in the .env file be resolved?'],
+            ['resolve-references', 'r', InputOption::VALUE_NONE, 'Should references in the environment file be resolved?'],
         ];
     }
 

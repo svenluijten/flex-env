@@ -10,7 +10,7 @@ class EnvSetCommand extends EnvCommand
     protected $name = 'env:set';
 
     /** @var string */
-    protected $description = 'Set an environment key to the given value';
+    protected $description = 'Set an environment variable to the given value.';
 
     public function handle(): int
     {
@@ -19,7 +19,7 @@ class EnvSetCommand extends EnvCommand
         $config->set($key = $this->key(), $this->value());
         $config->persist();
 
-        $this->info("Successfully set the value for \"$key\" in the .env file.");
+        $this->info("Successfully set the value for \"$key\" in the environment file.");
 
         return 0;
     }

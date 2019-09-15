@@ -11,7 +11,7 @@ class EnvDeleteCommand extends EnvCommand
     protected $name = 'env:delete';
 
     /** @var string */
-    protected $description = 'Delete an entry from your .env file';
+    protected $description = 'Delete an entry from your environment file.';
 
     public function handle(): int
     {
