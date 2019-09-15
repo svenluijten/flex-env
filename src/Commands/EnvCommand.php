@@ -9,11 +9,13 @@ use Sven\FileConfig\Store;
 
 class EnvCommand extends Command
 {
-    protected function config(): Store
+    protected function config(string $fileName = null): Store
     {
-        $envPath = $this->laravel->environmentFilePath();
+        $envPath = $this->laravel->environmentPath();
 
-        $file = new File($envPath);
+        $fileName = $fileName ?: $this->laravel->environmentFile();
+
+        $file = new File($envPath.DIRECTORY_SEPARATOR.$fileName);
 
         return new Store($file, new Env());
     }
