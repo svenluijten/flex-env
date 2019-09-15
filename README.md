@@ -21,6 +21,7 @@ we all know and love.
   - [Get an entry](#get-an-entry)
   - [List all entries](#list-all-entries)
   - [Generate `.env.example` file](#generate-envexample-file)
+  - [Synchronize the `.env` file with `.env.example`](#synchronize-the-env-file-with-envexample)
 - [Inspiration](#inspiration)
 - [Contributing](#contributing)
 - [License](#license)
