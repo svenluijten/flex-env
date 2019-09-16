@@ -192,7 +192,7 @@ for more information.
 [ico-version]: https://img.shields.io/packagist/v/sven/flex-env.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/flex-env.svg?style=flat-square
-[ico-build]: https://img.shields.io/travis/svenlujten/flex-env?style=flat-square
+[ico-build]: https://img.shields.io/travis/svenluijten/flex-env?style=flat-square
 [ico-styleci]: https://styleci.io/repos/49644781/shield
 
 [link-packagist]: https://packagist.org/packages/sven/flex-env
