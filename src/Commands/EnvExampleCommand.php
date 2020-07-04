@@ -21,7 +21,7 @@ class EnvExampleCommand extends EnvCommand
 
         $values = Collection::make($config->all())
             ->mapWithKeys(function ($value, $key) {
-                if (is_numeric($key) && $value === '') {
+                if (is_numeric($key) || $value === '') {
                     return [$key => $value];
                 }
 
