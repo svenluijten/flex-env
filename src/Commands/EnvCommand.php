@@ -29,7 +29,7 @@ class EnvCommand extends Command
     {
         $value = (string) $this->argument('value');
 
-        if (preg_match('/[^a-z0-9-_]/', $value)) {
+        if (preg_match('/[^a-z0-9-_]/', $value) === 1) {
             $value = '"'.$value.'"';
         }
 
