@@ -11,13 +11,12 @@
         }
     ],
     "require": {
-        "php": "^5.5.9 || ^7.0",
-        "illuminate/support": "^5.0",
-        "laravel/framework": "^5.0"
+        "php": "^7.2",
+        "illuminate/support": "^6.0 || ^7.0",
+        "laravel/framework": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8 || ^5.0",
-        "graham-campbell/testbench": "^3.1"
+        "graham-campbell/testbench": "^5.0"
     },
     "autoload": {
         "psr-4": {

@@ -7,20 +7,14 @@ use GrahamCampbell\TestBench\AbstractPackageTestCase;
 
 abstract class EnvTestCase extends AbstractPackageTestCase
 {
-    /**
-     * Set up the testing suite.
-     */
-    public function setUp()
+    public function setUp(): void
     {
         mkdir(__DIR__.'/assets');
 
         $this->flex = new Env(__DIR__.'/assets/.env');
     }
 
-    /**
-     * Tear down the testing suite.
-     */
-    public function tearDown()
+    public function tearDown(): void
     {
         $directory = realpath(__DIR__.'/assets');
 
