@@ -9,7 +9,7 @@ class EnvGetTest extends TestCase
     /** @test */
     public function it_gets_an_existing_value_from_the_environment_file(): void
     {
-        $this->setEnvironment(<<<ENV
+        $this->setEnvironment(<<<'ENV'
             FOO=bar
             KEY=value
             BAZ=qux
@@ -24,7 +24,7 @@ class EnvGetTest extends TestCase
     /** @test */
     public function it_warns_the_user_when_the_key_could_not_be_found(): void
     {
-        $this->setEnvironment(<<<ENV
+        $this->setEnvironment(<<<'ENV'
             HELLO=world
             ENV
         );
@@ -37,7 +37,7 @@ class EnvGetTest extends TestCase
     /** @test */
     public function it_gets_values_with_special_characters(): void
     {
-        $this->setEnvironment(<<<ENV
+        $this->setEnvironment(<<<'ENV'
             KEY_ONE="value wrapped in quotes because it contains spaces"
             KEY_TWO="s0m*t#1n&"
             ENV
