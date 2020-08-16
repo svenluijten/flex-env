@@ -10,7 +10,7 @@
          bootstrap="./vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Package Test Suite">
+        <testsuite name="Flex Env Test Suite">
             <directory suffix=".php">./tests</directory>
         </testsuite>
     </testsuites>
