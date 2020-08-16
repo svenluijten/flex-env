@@ -3,8 +3,8 @@ preset: laravel
 risky: false
 
 enabled:
-- phpdoc_order
-- phpdoc_separation
+  - phpdoc_order
+  - phpdoc_separation
 
 disabled:
-- length_ordered_imports
+    - not_operator_with_successor_space
