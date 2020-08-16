@@ -16,13 +16,13 @@
         }
     ],
     "require": {
-        "php": "^7.1.3",
-        "illuminate/support": "5.8.* || ^6.0",
-        "sven/file-config": "dev-master"
+        "php": "^7.2",
+        "illuminate/support": "^6.0 || ^7.0",
+        "sven/file-config": "^3.0"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^5.2",
-        "phpunit/phpunit": "7.* || ^8.3"
+        "graham-campbell/testbench": "^5.4",
+        "phpunit/phpunit": "^8.3 || ^9.0"
     },
     "autoload": {
         "psr-4": {
