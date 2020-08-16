@@ -24,11 +24,22 @@ class EnvSetCommand extends EnvCommand
         return 0;
     }
 
+    protected function value(): string
+    {
+        $value = (string) $this->argument('value') ?: $this->ask('What should the new value be?');
+
+        if (preg_match('/[^a-z0-9-_]/', $value) === 1) {
+            $value = '"'.$value.'"';
+        }
+
+        return $value;
+    }
+
     protected function getArguments()
     {
         return [
             ['key', InputArgument::REQUIRED, 'The name of the environment variable to set.'],
-            ['value', InputArgument::REQUIRED, 'The value to set the environment variable to.'],
+            ['value', InputArgument::OPTIONAL, 'The value to set the environment variable to.', null],
         ];
     }
 }

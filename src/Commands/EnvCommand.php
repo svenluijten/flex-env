@@ -24,15 +24,4 @@ class EnvCommand extends Command
     {
         return mb_strtoupper($this->argument('key'));
     }
-
-    protected function value(): string
-    {
-        $value = (string) $this->argument('value');
-
-        if (preg_match('/[^a-z0-9-_]/', $value) === 1) {
-            $value = '"'.$value.'"';
-        }
-
-        return $value;
-    }
 }
