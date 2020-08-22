@@ -3,7 +3,7 @@
 namespace Sven\FlexEnv\Commands;
 
 use Illuminate\Console\Command;
-use Sven\FileConfig\Drivers\Env;
+use Sven\FileConfig\Drivers\DotEnv;
 use Sven\FileConfig\File;
 use Sven\FileConfig\Store;
 
@@ -17,7 +17,7 @@ class EnvCommand extends Command
 
         $file = new File($envPath.DIRECTORY_SEPARATOR.$fileName);
 
-        return new Store($file, new Env());
+        return new Store($file, new DotEnv());
     }
 
     protected function key(): string

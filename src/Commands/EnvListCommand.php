@@ -27,7 +27,7 @@ class EnvListCommand extends EnvCommand
                 return [$key, $value];
             });
 
-        $this->table(['Key', 'Value'], $data);
+        $this->table(['Key', 'Value'], $data->toArray());
 
         return 0;
     }
@@ -42,14 +42,14 @@ class EnvListCommand extends EnvCommand
     protected function resolveReferences(Store $config): \Closure
     {
         return function (Collection $data) use ($config) {
-            return $data->map(function ($value) use ($config) {
-                preg_match('/\$\{(.+)\}/', $value, $matches);
-
-                if (isset($matches[1])) {
+            return $data->map(function ($value, $key) use ($config) {
+                $newValue = preg_replace_callback('/\$\{(.+)\}/m', function (array $matches) use ($config) {
                     return $config->get($matches[1]);
-                }
+                }, $value);
 
-                return $value;
+                $config->set($key, $newValue);
+
+                return $newValue;
             });
         };
     }

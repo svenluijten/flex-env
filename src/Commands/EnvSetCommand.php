@@ -26,13 +26,7 @@ class EnvSetCommand extends EnvCommand
 
     protected function value(): string
     {
-        $value = (string) $this->argument('value') ?: $this->ask('What should the new value be?');
-
-        if (preg_match('/[^a-z0-9-_]/', $value) === 1) {
-            $value = '"'.$value.'"';
-        }
-
-        return $value;
+        return (string) $this->argument('value') ?: $this->ask('What should the new value be?');
     }
 
     protected function getArguments()

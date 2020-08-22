@@ -44,11 +44,11 @@ class EnvGetTest extends TestCase
         );
 
         $this->artisan('env:get KEY_ONE')
-            ->expectsOutput('"value wrapped in quotes because it contains spaces"')
+            ->expectsOutput('value wrapped in quotes because it contains spaces')
             ->assertExitCode(0);
 
         $this->artisan('env:get KEY_TWO')
-            ->expectsOutput('"s0m*t#1n&"')
+            ->expectsOutput('s0m*t#1n&')
             ->assertExitCode(0);
     }
 }

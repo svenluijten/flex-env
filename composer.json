@@ -18,7 +18,7 @@
     "require": {
         "php": "^7.3",
         "illuminate/support": "^6.0 || ^7.0",
-        "sven/file-config": "^3.0"
+        "sven/file-config": "dev-env-without-quotes"
     },
     "require-dev": {
         "graham-campbell/testbench": "^5.4",
