@@ -30,7 +30,9 @@ abstract class TestCase extends AbstractPackageTestCase
     {
         parent::tearDown();
 
-        unlink(__DIR__.'/assets/.env.test');
+        foreach (glob(__DIR__.'/assets/.env.*') as $file) {
+            unlink($file);
+        }
     }
 
     protected function setEnvironment(string $env)
