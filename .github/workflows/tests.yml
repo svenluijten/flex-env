@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
     phpunit:
-        name: PHP ${{ matrix.php }} (${{ matrix.composer_flags }})
+        name: PHP ${{ matrix.php }} on ${{ matrix.os }} (${{ matrix.composer_flags }})
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
