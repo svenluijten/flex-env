@@ -1,16 +1,15 @@
 name: Tests (PHP)
-on:
-    push:
-    pull_request:
+on: [push, pull_request]
 
 jobs:
     phpunit:
         name: PHP ${{ matrix.php }} (${{ matrix.composer_flags }})
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}
         strategy:
             matrix:
+                os: [ubuntu-latest, windows-latest]
                 php: [7.3, 7.4]
-                composer_flags: ['--prefer-lowest', '--prefer-stable']
+                composer_flags: ['--prefer-lowest', '']
         steps:
             - uses: actions/checkout@v2
 
@@ -22,7 +21,7 @@ jobs:
                   coverage: none
 
             - name: Install Composer dependencies
-              run: composer update --no-interaction --no-ansi --no-suggest --prefer-dist ${{ matrix.composer_flags }}
+              run: composer update --no-interaction --no-ansi --prefer-dist --prefer-stable ${{ matrix.composer_flags }}
 
             - name: Execute tests
               run: vendor/bin/phpunit
