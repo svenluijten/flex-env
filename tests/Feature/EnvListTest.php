@@ -18,14 +18,12 @@ class EnvListTest extends TestCase
         );
 
         $this->artisan('env:list')
-            ->expectsOutput('+------------------+------------------+')
-            ->expectsOutput('| Key              | Value            |')
-            ->expectsOutput('+------------------+------------------+')
-            ->expectsOutput('| HELLO            | world            |')
-            ->expectsOutput('| FOO              | bar              |')
-            ->expectsOutput('| BAZ              | qux              |')
-            ->expectsOutput('| SOMETHING_LONGER | contains spaces! |')
-            ->expectsOutput('+------------------+------------------+')
+            ->expectsTable(['Key', 'Value'], [
+                ['HELLO', 'world'],
+                ['FOO', 'bar'],
+                ['BAZ', 'qux'],
+                ['SOMETHING_LONGER', 'contains spaces!'],
+            ])
             ->assertExitCode(0);
     }
 
@@ -40,13 +38,11 @@ class EnvListTest extends TestCase
         );
 
         $this->artisan('env:list --resolve-references')
-            ->expectsOutput('+-----------+--------------+')
-            ->expectsOutput('| Key       | Value        |')
-            ->expectsOutput('+-----------+--------------+')
-            ->expectsOutput('| HELLO     | world        |')
-            ->expectsOutput('| FOO       | bar          |')
-            ->expectsOutput('| SOMETHING | hello, world |')
-            ->expectsOutput('+-----------+--------------+')
+            ->expectsTable(['Key', 'Value'], [
+                ['HELLO', 'world'],
+                ['FOO', 'bar'],
+                ['SOMETHING', 'hello, world'],
+            ])
             ->assertExitCode(0);
     }
 }
