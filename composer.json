@@ -18,7 +18,7 @@
     "require": {
         "php": "^7.3 || ^8.0",
         "laravel/framework": "^8.22",
-        "sven/file-config": "dev-env-without-quotes"
+        "sven/file-config": "^3.1.0"
     },
     "require-dev": {
         "graham-campbell/testbench": "^5.4",
