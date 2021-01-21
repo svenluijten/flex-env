@@ -29,7 +29,7 @@ class EnvSyncCommand extends EnvCommand
         }
 
         if ($this->option('dry-run')) {
-            $table = Collection::make($real->all())
+            $table = Collection::make($missingKeys)
                 ->map(function ($value, $key) {
                     return [$key, $value];
                 })

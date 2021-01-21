@@ -4,7 +4,7 @@ namespace Sven\FlexEnv\Commands;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
-use Sven\FileConfig\Drivers\Env;
+use Sven\FileConfig\Drivers\DotEnv;
 use Symfony\Component\Console\Input\InputArgument;
 
 class EnvExampleCommand extends EnvCommand
@@ -29,7 +29,7 @@ class EnvExampleCommand extends EnvCommand
             })
             ->toArray();
 
-        $contents = (new Env())->export($values);
+        $contents = (new DotEnv())->export($values);
         $file = $this->laravel->environmentPath().DIRECTORY_SEPARATOR.$this->argument('name');
 
         $files->put($file, $contents);
