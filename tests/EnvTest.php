@@ -49,6 +49,15 @@ class EnvTest extends EnvTestCase
     }
 
     /** @test */
+    public function it_can_set_boolean_values()
+    {
+        $result = $this->flex->set('BOOLEAN_VALUE', true)
+                            ->get('BOOLEAN_VALUE');
+
+        $this->assertEquals('true', $result);
+    }
+
+    /** @test */
     public function it_removes_an_entry()
     {
         $result1 = $this->flex->set('FOO_BAR', 'biz-baz')
@@ -91,7 +100,7 @@ class EnvTest extends EnvTestCase
                    ->set('VARIABLE', 'variable');
 
         $this->assertEquals(
-            ['HELLO_WORLD' => '"hello world"', 'TEST_VARIABLE' => '"test variable"', 'VARIABLE' => '"variable"'],
+            ['HELLO_WORLD' => '"hello world"', 'TEST_VARIABLE' => '"test variable"', 'VARIABLE' => 'variable'],
             $this->flex->all()
         );
     }
@@ -104,13 +113,13 @@ class EnvTest extends EnvTestCase
             ->set('MAIL_ENCRYPTION', 'tls');
 
         $this->assertEquals(
-            ['MAIL_USERNAME' => '"name@example.com"', 'MAIL_PASSWORD' => '"==hy6^gGbS+=="', 'MAIL_ENCRYPTION' => '"tls"'],
+            ['MAIL_USERNAME' => '"name@example.com"', 'MAIL_PASSWORD' => '"==hy6^gGbS+=="', 'MAIL_ENCRYPTION' => 'tls'],
             $this->flex->all()
         );
 
         $this->assertEquals('
 MAIL_USERNAME="name@example.com"
 MAIL_PASSWORD="==hy6^gGbS+=="
-MAIL_ENCRYPTION="tls"', file_get_contents(__DIR__.'/assets/.env'));
+MAIL_ENCRYPTION=tls', file_get_contents(__DIR__.'/assets/.env'));
     }
 }

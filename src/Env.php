@@ -24,7 +24,7 @@ class Env
     /**
      * Instantiate the Env.
      *
-     * @param string $path
+     * @param  string  $path
      */
     public function __construct($path)
     {
@@ -39,8 +39,7 @@ class Env
     /**
      * Get an entry from the .env file by key.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return string
      */
     public function get($key)
@@ -57,17 +56,20 @@ class Env
     /**
      * Set the value of the given key to the value supplied.
      *
-     * @param string $key
-     * @param string $value
-     * @param bool   $linebreak
-     *
+     * @param  string  $key
+     * @param  string|bool|int  $value
+     * @param  bool  $linebreak
      * @return \Sven\FlexEnv\Env
      */
     public function set($key, $value, $linebreak = false)
     {
         $oldValue = $this->get($key);
 
-        if (!preg_match('/\d/', $value) || preg_match('/=/', $value)) {
+        if (is_bool($value)) {
+            $value = $value ? 'true' : 'false';
+        }
+
+        if (preg_match('/\W\D/', $value)) {
             $value = "\"$value\"";
         }
 
@@ -85,8 +87,7 @@ class Env
     /**
      * Delete an entry from the .env file.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return \Sven\FlexEnv\Env
      */
     public function delete($key)
@@ -118,9 +119,8 @@ class Env
     /**
      * Copy the .env file to the given destination.
      *
-     * @param string $destination   Full path to copy the file to
-     * @param bool   $excludeValues Whether or not to include values
-     *
+     * @param  string  $destination  Full path to copy the file to
+     * @param  bool  $excludeValues  Whether or not to include values
      * @return bool
      */
     public function copy($destination, $excludeValues = false)
@@ -178,10 +178,9 @@ class Env
     /**
      * Replace a part of the .env file.
      *
-     * @param string $old
-     * @param string $new
-     * @param int    $append
-     *
+     * @param  string  $old
+     * @param  string  $new
+     * @param  int  $append
      * @return \Sven\FlexEnv\Env
      */
     public function replaceInFile($old, $new, $append = 0)
