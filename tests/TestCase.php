@@ -7,11 +7,7 @@ use Sven\FlexEnv\ServiceProvider;
 
 abstract class TestCase extends AbstractPackageTestCase
 {
-    /**
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return string
-     */
-    public function getServiceProviderClass($app)
+    public static function getServiceProviderClass(): string
     {
         return ServiceProvider::class;
     }
