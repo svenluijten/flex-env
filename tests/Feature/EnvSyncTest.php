@@ -23,7 +23,7 @@ class EnvSyncTest extends TestCase
         $this->artisan('env:sync', ['--dry-run' => true])
             ->expectsOutput('This would add the following variables to the environment file:')
             ->expectsTable(['Key', 'Value'], [['I_AM_NEW', '']])
-            ->expectsOutput('Run with "--force" to make these changes.')
+            ->expectsOutput('Run without "--dry-run" to make these changes.')
             ->assertExitCode(0);
     }
 
