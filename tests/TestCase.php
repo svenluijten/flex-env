@@ -2,7 +2,6 @@
 
 namespace Sven\FlexEnv\Tests;
 
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sven\FlexEnv\ServiceProvider;
 
