@@ -37,7 +37,7 @@ class EnvSyncCommand extends EnvCommand
 
             $this->info('This would add the following variables to the environment file:');
             $this->table(['Key', 'Value'], $table);
-            $this->info('Run with "--force" to make these changes.');
+            $this->info('Run without "--dry-run" to make these changes.');
 
             return 0;
         }
