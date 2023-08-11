@@ -3,23 +3,19 @@
 namespace Sven\FlexEnv\Tests;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Sven\FlexEnv\ServiceProvider;
 
-abstract class TestCase extends AbstractPackageTestCase
+abstract class TestCase extends OrchestraTestCase
 {
-    public static function getServiceProviderClass(): string
+    protected function getEnvironmentSetUp($app): void
     {
-        return ServiceProvider::class;
-    }
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
         file_put_contents(__DIR__.'/assets/.env.test', '');
 
-        $this->app->useEnvironmentPath(__DIR__.'/assets');
-        $this->app->loadEnvironmentFrom('.env.test');
+        $app->useEnvironmentPath(__DIR__.'/assets');
+        $app->loadEnvironmentFrom('.env.test');
+
+        $app->register(ServiceProvider::class);
     }
 
     protected function tearDown(): void

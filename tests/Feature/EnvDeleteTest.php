@@ -17,7 +17,6 @@ class EnvDeleteTest extends TestCase
         );
 
         $this->artisan('env:delete FOO')
-            // ->expectsConfirmation('Are you sure you want to delete "FOO" from your .env file?', 'yes')
             ->expectsQuestion('Are you sure you want to delete "FOO" from your .env file?', true)
             ->expectsOutput('Successfully deleted the entry "FOO" from your .env file.')
             ->assertExitCode(0);
@@ -63,7 +62,6 @@ class EnvDeleteTest extends TestCase
         );
 
         $this->artisan('env:delete FOO')
-            // ->expectsConfirmation('Are you sure you want to delete "FOO" from your .env file?', 'no')
             ->expectsQuestion('Are you sure you want to delete "FOO" from your .env file?', false)
             ->expectsOutput('Alright, no changes made.')
             ->assertExitCode(1);
