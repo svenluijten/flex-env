@@ -27,41 +27,28 @@ we all know and love.
 - [License](#license)
 
 ## Installation
-You'll have to follow a couple of simple steps to install this package.
-
-### Downloading
-Via [composer](http://getcomposer.org):
+You can install this package via [Composer](http://getcomposer.org):
 
 ```bash
-$ composer require sven/flex-env:^3.0 --dev
-```
-
-Or add the package to your development dependencies in `composer.json` and run
-`composer update sven/flex-env` to download the package:
-
-```json
-{
-    "require-dev": {
-        "sven/flex-env": "^3.0"
-    }
-}
+composer require sven/flex-env --dev
 ```
 
 ### Registering the service provider
-If you're using Laravel 5.5, you can skip this step. The service provider will have already been registered
-thanks to auto-discovery. 
-
-Otherwise, register `Sven\FlexEnv\ServiceProvider::class` manually in your `AppServiceProvider`'s
-`register` method:
+Ensure `Sven\FlexEnv\ServiceProvider::class` is registered in the service container. For most people, this will have
+been done automatically thanks to auto-discovery. If you opted out of package auto-discovery, register it manually in
+one of your (non-deferred) service providers:
 
 ```php
 public function register()
 {
     if ($this->app->environment() !== 'production') {
-        $this->app->register(\Sven\FlexEnv\ServiceProvider::class);
+        $this->app->register(\Sven\ArtisanView\ServiceProvider::class);
     }    
 }
 ```
+
+Alternatively, you can use [`sven/env-providers`](https://github.com/svenluijten/env-providers) to only register Flex
+Env's service provider in the `development` environment.
 
 ## Usage
 The commands in this package should now be registered. If you now run `php artisan`,
