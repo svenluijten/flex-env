@@ -20,7 +20,7 @@ class EnvListCommand extends EnvCommand
 
         $data = Collection::make($config->all())
             ->reject(function ($value, $key) {
-                return $value === '' || ! is_string($key);
+                return $value === '' || !is_string($key);
             })
             ->when($this->option('resolve-references'), $this->resolveReferences($config))
             ->map(function ($value, $key) {
