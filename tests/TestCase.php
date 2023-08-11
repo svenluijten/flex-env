@@ -8,8 +8,7 @@ use Sven\FlexEnv\ServiceProvider;
 abstract class TestCase extends AbstractPackageTestCase
 {
     /**
-     * @param \Illuminate\Foundation\Application $app
-     *
+     * @param  \Illuminate\Foundation\Application  $app
      * @return string
      */
     public function getServiceProviderClass($app)
