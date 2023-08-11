@@ -16,13 +16,14 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "illuminate/support": "^8.0 || ^9.0",
-        "laravel/framework": "^8.0 || ^9.0"
+        "php": "^7.3 || ^8.0",
+        "laravel/framework": "^8.22 || ^9.0",
+        "sven/file-config": "^3.1.0"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^5.2",
-        "phpunit/phpunit": "7.* || ^8.3"
+        "graham-campbell/testbench": "^5.4",
+        "phpunit/phpunit": "^8.3 || ^9.0",
+        "mockery/mockery": "^1.4"
     },
     "autoload": {
         "psr-4": {

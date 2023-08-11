@@ -24,11 +24,16 @@ class EnvSetCommand extends EnvCommand
         return 0;
     }
 
+    protected function value(): string
+    {
+        return (string) $this->argument('value') ?: $this->ask('What should the new value be?');
+    }
+
     protected function getArguments()
     {
         return [
             ['key', InputArgument::REQUIRED, 'The name of the environment variable to set.'],
-            ['value', InputArgument::REQUIRED, 'The value to set the environment variable to.'],
+            ['value', InputArgument::OPTIONAL, 'The value to set the environment variable to.', null],
         ];
     }
 }
