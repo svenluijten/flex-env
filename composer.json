@@ -1,7 +1,12 @@
 {
     "name": "sven/flex-env",
     "description": "Edit your .env file in Laravel directly from the command line.",
-    "keywords": ["flexible", "env", "laravel", "artisan"],
+    "keywords": [
+        "flexible",
+        "env",
+        "laravel",
+        "artisan"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -12,11 +17,11 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0 || ^9.0",
-        "laravel/framework": "^8.0 || ^9.0"
+        "illuminate/support": "^8.0 || ^9.0 || ^11.0",
+        "laravel/framework": "^8.0 || ^9.0 || ^11.0"
     },
     "require-dev": {
-        "graham-campbell/testbench": "^5.0"
+        "graham-campbell/testbench": "^5.0 || ^6.1"
     },
     "autoload": {
         "psr-4": {
